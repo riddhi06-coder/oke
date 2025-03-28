@@ -1,13 +1,14 @@
  <!-- Page Body Start-->
- <div class="page-body-wrapper">
-        <!-- Page Sidebar Start-->
-        <div class="sidebar-wrapper" data-layout="stroke-svg">
-          <div class="logo-wrapper">
-		  	<a href="{{ route('admin.dashboard') }}">
-          <div class="text-center">
-              <img class="img-fluid" src="{{ asset('admin/assets/images/logo/logo.png') }}" alt="" style="max-width: 30% !important;">
-          </div>
-        </a>
+  <div class="page-body-wrapper">
+      <!-- Page Sidebar Start-->
+      <div class="sidebar-wrapper" data-layout="stroke-svg">
+        <div class="logo-wrapper">
+          <a href="{{ route('admin.dashboard') }}">
+            <div class="text-center">
+                <img class="img-fluid" src="{{ asset('admin/assets/images/logo/logo.png') }}" alt="" style="max-width: 30% !important;">
+            </div>
+          </a>
+
 		      <div class="back-btn"><i class="fa fa-angle-left"> </i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
           </div>
@@ -16,7 +17,6 @@
                   <img class="img-fluid" src="{{ asset('admin/assets/images/favicon.png') }}" alt="" style="max-width: 65% !important;">
               </a>
           </div>
-
           
           <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
@@ -50,4 +50,5 @@
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
             </div>
           </nav>
+
         </div>
