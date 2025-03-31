@@ -58,6 +58,7 @@
                             <th>#</th>
                             <th>Banner Image</th>
                             <th>Title</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -75,10 +76,17 @@
                                         @endif
                                     </td>
                                     <td>{{ $homePage->banner_title }}</td>
+                                    <td>
+                                        <a href="{{ route('home-page.edit', $homePage->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                        <form action="{{ route('home-page.destroy', $homePage->id) }}" onclick="return confirm('Do you want to delete it?')" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
-
                       </table>
                     </div>
                   </div>
