@@ -20,9 +20,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('backend.home.index');
+        $homePages = HomePage::all();
+        return view('backend.home.index', compact('homePages'));
     }
-
+    
     public function create(Request $request)
     { 
         return view('backend.home.create');

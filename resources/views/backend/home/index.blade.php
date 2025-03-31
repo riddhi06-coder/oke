@@ -58,11 +58,25 @@
                             <th>#</th>
                             <th>Banner Image</th>
                             <th>Title</th>
-                            <th>Company Name</th>
                           </tr>
                         </thead>
                         <tbody>
-                 
+                            @foreach($homePages as $index => $homePage)
+                                @php
+                                    $companyNames = json_decode($homePage->company_name, true);
+                                @endphp
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>
+                                        @if($homePage->banner_image)
+                                            <img src="{{ asset('uploads/home/' . $homePage->banner_image) }}" alt="Banner" width="100">
+                                        @else
+                                            No Image
+                                        @endif
+                                    </td>
+                                    <td>{{ $homePage->banner_title }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
 
                       </table>
