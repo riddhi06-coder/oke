@@ -20,8 +20,9 @@ class HomePageController extends Controller
 
     public function index()
     {
-        $home = HomePage::whereNull('deleted_by')->get();
-        return view('frontend.home', compact('home'));
+        $homeDetails = HomePage::whereNull('deleted_by')->get();
+        // dd($home);
+        return view('frontend.home', compact('homeDetails'));
     }
 
 
