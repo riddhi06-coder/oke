@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\Backend\AboutController;
 
 
 // Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::group(['middleware' => ['auth:web', \App\Http\Middleware\PreventBackHisto
     })->name('admin.dashboard');
 });
 
-
-// ==== Manage Privacy Policy Page
+// ==== Manage Home Page
 Route::resource('home-page', HomeController::class);
+
+// ==== Manage About Page
+Route::resource('about', AboutController::class);
