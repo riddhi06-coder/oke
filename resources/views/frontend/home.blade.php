@@ -29,6 +29,7 @@
 
       @include('components.frontend.header')
       
+      
         <div id="fullpage">
             <section class="section black-img-bg" id="banner">
                 <div class="boxes-group-wrap">
@@ -66,9 +67,13 @@
                 </div>
             </section>
 
+
+            @php
+                $sectionIds = ['gasification', 'metal', 'catalyst', 'battery-manufacturing'];
+            @endphp
             @foreach($homeDetails as $index => $home)
                 @if($index > 0)
-                <section class="section banner-wrap" id="section{{ $index + 2 }}" style="background-image: url('{{ asset('uploads/home/' . ($home->banner_image ?? 'default.jpg')) }}');">
+                <section class="section banner-wrap" id="{{ $sectionIds[$index - 1] }}" style="background-image: url('{{ asset('uploads/home/' . ($home->banner_image ?? 'default.jpg')) }}');">
                     <div class="banner-text">
                         <h6>{{ $home->banner_heading }}</h6>
                         @php
@@ -117,7 +122,6 @@
       <script src="http://themes.tvda.pw/demos/identiq/js/jquery.parallax-1.1.3.js"></script>
       <script src="{{ asset('frontend/assets/js/fullpage.js') }}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.27/fullpage.min.js"></script>
-      <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
 
       <!-- for loader -->
       <script type="text/javascript">
@@ -181,7 +185,7 @@
                  navigation: true,
                  navigationPosition: 'right',
                  anchors: ['section1', 'section2', 'section3', 'section4', 'section5', 'section6'],
-                 navigationTooltips: ['<img src="{{ asset('frontend/assets/images/icons/header.png') }}">','<img src="{{ asset('frontend/assets/images/icons/gasification.png') }}">','<img src="{{ asset('frontend/assets/images/icons/metal.png') }}">', '<img src="{{ asset('frontend/assets/images/icons/rs.png') }}">', '<img src="{{ asset('frontend/assets/images/icons/battery.png') }}">', '<img src="{{ asset('frontend/assets/images/icons/footer.png') }}">'],
+                 navigationTooltips: ['<img src="/frontend/assets/images/icons/header.png">','<img src="/frontend/assets/images/icons/gasification.png">','<img src="/frontend/assets/images/icons/metal.png">', '<img src="/frontend/assets/images/icons/rs.png">', '<img src="/frontend/assets/images/icons/battery.png">', '<img src="/frontend/assets/images/icons/footer.png">'],
                  showActiveTooltip: true,
                  slidesNavigation: true,
                  slidesNavPosition: 'bottom',
@@ -191,5 +195,6 @@
              });
          });
       </script>
+      
    </body>
 </html>
