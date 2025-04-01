@@ -113,15 +113,13 @@
             @include('components.frontend.footer')
         </div>
 
+        <div id="scroll-percentage"><span id="scroll-percentage-value"></span></div>
 
-
-      <div id="scroll-percentage"><span id="scroll-percentage-value"></span></div>
       @include('components.frontend.main-js')
 
       <!-- image moving with parallex -->
       <script src="http://themes.tvda.pw/demos/identiq/js/jquery.parallax-1.1.3.js"></script>
       <script src="{{ asset('frontend/assets/js/fullpage.js') }}"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.27/fullpage.min.js"></script>
 
       <!-- for loader -->
       <script type="text/javascript">
