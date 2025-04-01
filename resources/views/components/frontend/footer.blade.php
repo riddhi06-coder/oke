@@ -1,6 +1,6 @@
 
      <!-- footer start-->
-    <footer class="bg-dark">
+    <footer class="section bg-dark footer-hei" id="footer">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
