@@ -5,6 +5,29 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/fullpage.css') }}">
 
+    <style>
+        .boxes-text {
+            text-align: center; /* Centers content inside the boxes-text container */
+        }
+
+        .boxes-text h6 {
+            font-family: 'productsans-bold';
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            word-spacing: 5px;
+            color: #cbcbcb;
+            background: #0000004d;
+            border-radius: 100px;
+            backdrop-filter: blur(6px);
+            padding: 10px 17px;
+            display: inline-block;
+        }
+
+        
+    </style>
+
+    
   </head>
   <body>
 
@@ -66,48 +89,91 @@
             @endphp
 
             @if(!empty($cards)) {{-- Show section only if card details are present --}}
-                <section class="section black-img-bg" id="{{ $sectionId }}" style="background-image: url('{{ $bannerImage }}'); background-size: cover; background-position: center;">
-                    <div class="boxes-group-wrap">
+            <section class="section black-img-bg" id="{{ $sectionId }}" 
+                style="background-image: url('{{ $bannerImage }}'); background-size: cover; background-position: center;">
+                
+                <div class="boxes-group-wrap">
+                    @if ($loop->first)  {{-- Show only for the first section --}}
                         <div class="wrap-circle-button">
                             <img src="{{ asset('frontend/assets/images/icons/arrow-down-big.png') }}">
                             <p>Scroll Down</p>
                         </div>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-9">
-                                    <div class="boxes-text">
-                                        <h1>{{ $home->banner_title }}</h1>
-                                    </div>
-                                    @if (!empty($cards) && collect($cards)->filter(function ($card) {
-                                        return !empty($card['company_logo']) || !empty($card['company_name']) || !empty($card['description']);
-                                        })->isNotEmpty())
-                                        <div class="boxes-group">
-                                            <div class="row">
-                                                @foreach($cards as $cardIndex => $card)
-                                                    @php
-                                                        $cardSectionId = $sectionIds[$cardIndex + 1] ?? '#';
-                                                    @endphp
-                                                    <div class="col-md-3 col-sm-3 col-xs-6">
-                                                        <a href="#{{ $cardSectionId }}">
-                                                            <div class="single-box">
-                                                                <p>{{ str_pad($cardIndex + 1, 2, '0', STR_PAD_LEFT) }} - Represent</p>
-                                                                <img src="{{ asset('uploads/home/' . ($card['company_logo'] ?? 'default-logo.png')) }}" class="img-responsive">
-                                                                <h2>{{ $card['company_name'] ?? 'N/A' }}</h2>
-                                                                <h6>{{ $card['description'] ?? 'No description available' }}</h6>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
+                    @endif
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            
+                            <div class="col-md-3"></div>
+                            
+                            <div class="col-md-9">
+                               
+                                <div class="boxes-text">
+                                    @if(!empty($home->banner_heading))
+                                        <h6>{{ $home->banner_heading }}</h6>
                                     @endif
 
+                                    <h1>{{ $home->banner_title }}</h1>
                                 </div>
+
+                                @php
+                                    // Check if any card has company_logo, company_name, or description
+                                    $hasValidCards = collect($cards)->filter(function ($card) {
+                                        return !empty($card['company_logo']) || !empty($card['company_name']) || !empty($card['description']);
+                                    })->isNotEmpty();
+                                @endphp
+
+                                @if ($hasValidCards)
+                                    <div class="boxes-group">
+                                        <div class="row">
+                                            @foreach($cards as $cardIndex => $card)
+                                                @php
+                                                    $cardSectionId = $sectionIds[$cardIndex + 1] ?? '#';
+                                                @endphp
+                                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                                    <a href="#{{ $cardSectionId }}">
+                                                        <div class="single-box">
+                                                            <p>{{ str_pad($cardIndex + 1, 2, '0', STR_PAD_LEFT) }} - Represent</p>
+                                                            <img src="{{ asset('uploads/home/' . ($card['company_logo'] ?? 'default-logo.png')) }}" class="img-responsive">
+                                                            <h2>{{ $card['company_name'] ?? 'N/A' }}</h2>
+                                                            <h6>{{ $card['description'] ?? 'No description available' }}</h6>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @else
+                                
+                                    <!-- Show this only if there are no valid cards -->
+                                    <div class="banner-pattern mb-16 flex flex-col items-center">
+                                        <div class="banner-line flex items-center justify-center">
+                                            <div class="fourline"></div>
+                                            <div class="thirdline"></div>
+                                        </div>
+                                        <div class="banner-line flex items-center justify-center">
+                                            <div class="secline"></div>
+                                            <div class="firstline"></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center-center">
+                                        <a href="rsb.html">
+                                            <button class="btn-primary">
+                                                <span>Read More</span>
+                                                <span class="btn-primary-inner">
+                                                    <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
+
+
             @endif {{-- End if cards are present --}}
         @endforeach
 

@@ -21,7 +21,7 @@ class HomePageController extends Controller
     public function index()
     {
         $homeDetails = HomePage::whereNull('deleted_by')->get();
-        // dd($home);
+        // dd($homeDetails);
         return view('frontend.home', compact('homeDetails'));
     }
 
