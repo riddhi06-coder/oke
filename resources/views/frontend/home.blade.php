@@ -60,10 +60,13 @@
                         'description' => $descriptions[$i] ?? null,
                     ];
                 }
+
+                // Get respective banner image
+                $bannerImage = !empty($home->banner_image) ? asset('uploads/home/' . $home->banner_image) : asset('frontend/assets/images/default-banner.jpg');
             @endphp
 
-            @if($index === 0)
-                <section class="section black-img-bg" id="banner">
+            @if(!empty($cards)) {{-- Show section only if card details are present --}}
+                <section class="section black-img-bg" id="{{ $sectionId }}" style="background-image: url('{{ $bannerImage }}'); background-size: cover; background-position: center;">
                     <div class="boxes-group-wrap">
                         <div class="wrap-circle-button">
                             <img src="{{ asset('frontend/assets/images/icons/arrow-down-big.png') }}">
@@ -76,8 +79,9 @@
                                     <div class="boxes-text">
                                         <h1>{{ $home->banner_title }}</h1>
                                     </div>
-
-                                    @if(!empty($cards))
+                                    @if (!empty($cards) && collect($cards)->filter(function ($card) {
+                                        return !empty($card['company_logo']) || !empty($card['company_name']) || !empty($card['description']);
+                                        })->isNotEmpty())
                                         <div class="boxes-group">
                                             <div class="row">
                                                 @foreach($cards as $cardIndex => $card)
@@ -98,44 +102,19 @@
                                             </div>
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-            @else
-                <section class="section banner-wrap {{ $sectionId }}" id="{{ $sectionId }}">
-                    <div class="bg{{ $index }}"></div>
-                    <div class="banner-text">
-                        <h6>{{ $home->banner_heading }}</h6>
-                        <h2>{{ $home->banner_title }}</h2>
-                        <div class="banner-pattern mb-16 flex flex-col items-center">
-                            <div class="banner-line flex items-center justify-center">
-                                <div class="fourline"></div>
-                                <div class="thirdline"></div>
-                            </div>
-                            <div class="banner-line flex items-center justify-center">
-                                <div class="secline"></div>
-                                <div class="firstline"></div>
-                            </div>
-                        </div>
-                        <div class="text-center-center">
-                            <a href="{{ $home->link ?? 'coming-soon.html' }}">
-                                <button class="btn-primary">
-                                    <span>Read More</span>
-                                    <span class="btn-primary-inner">
-                                        <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
-                                    </span>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            @endif
+            @endif {{-- End if cards are present --}}
         @endforeach
 
         @include('components.frontend.footer')
+        
     </div>
+
 
 
 
