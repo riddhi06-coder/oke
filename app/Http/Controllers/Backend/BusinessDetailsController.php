@@ -306,4 +306,19 @@ class BusinessDetailsController extends Controller
         return redirect()->route('details.index')->with('message', 'Business details updated successfully.');
     }
 
+
+    public function destroy(string $id)
+    {
+        $data['deleted_by'] =  Auth::user()->id;
+        $data['deleted_at'] =  Carbon::now();
+        try {
+            $industries = BusinessDetail::findOrFail($id);
+            $industries->update($data);
+
+            return redirect()->route('details.index')->with('message', 'Details deleted successfully!');
+        } catch (Exception $ex) {
+            return redirect()->back()->with('error', 'Something Went Wrong - ' . $ex->getMessage());
+        }
+    }
+
 }
