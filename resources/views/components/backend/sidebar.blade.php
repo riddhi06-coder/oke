@@ -84,7 +84,7 @@
                     </svg><span>Business Details</span></a>
                   <ul class="sidebar-submenu">
                     <li><a href="{{ route('details.index') }}">Page Details (I)</a></li>
-                    <li><a href="{{ route('details.index') }}">Page Details (II)</a></li>
+                    <!-- <li><a href="{{ route('details.index') }}">Page Details (II)</a></li> -->
                   </ul>
                 </li>
 

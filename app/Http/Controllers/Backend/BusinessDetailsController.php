@@ -43,7 +43,7 @@ class BusinessDetailsController extends Controller
     {
         // dd($request);
         $request->validate([
-            'business_id' => 'required|exists:business,id',
+            'business_id' => 'required|exists:business,id|unique:business_details,business_id',
             'banner_label' => 'required|string|max:255',
             'banner_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'logo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -174,7 +174,7 @@ class BusinessDetailsController extends Controller
         $businessDetail = BusinessDetail::findOrFail($id);
 
         $request->validate([
-            'business_id' => 'required|exists:business,id',
+            'business_id' => 'required|exists:business,id|unique:business_details,business_id,' . $businessDetail->id,
             'banner_label' => 'required|string|max:255',
             'banner_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -192,6 +192,7 @@ class BusinessDetailsController extends Controller
         ], [
             'business_id.required' => 'Business Type is required.',
             'business_id.exists' => 'Invalid Business Type selected.',
+            'business_id.unique' => 'Business Type already exsists.',
             'banner_label.required' => 'Banner Label is required.',
             'banner_image.image' => 'Banner Image must be a valid image file.',
             'banner_image.mimes' => 'Banner Image must be in JPG, JPEG, PNG, or WEBP format.',
