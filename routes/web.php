@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\HomeController;
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BusinessController;
 use App\Http\Controllers\Backend\BusinessDetailsController;
+use App\Http\Controllers\Backend\ContactDetailsController;
 
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\DetailController;
@@ -43,7 +44,8 @@ Route::resource('business', BusinessController::class);
 // ==== Manage Bussiness Details
 Route::resource('details', BusinessDetailsController::class);
 
-
+// ==== Manage Contact Details
+Route::resource('contact-details', ContactDetailsController::class);
 
 
 Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHistoryMiddleware::class]],function(){
