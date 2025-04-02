@@ -167,4 +167,136 @@ class BusinessDetailsController extends Controller
         $businesses = Business::wherenull('deleted_by')->pluck('business_name', 'id'); 
         return view('backend.business-details.edit', compact('business_details','businesses'));
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $businessDetail = BusinessDetail::findOrFail($id);
+
+        $request->validate([
+            'business_id' => 'required|exists:business,id',
+            'banner_label' => 'required|string|max:255',
+            'banner_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'banner_heading' => 'required|string|max:255',
+            'banner_description' => 'nullable|string|max:255',
+            'year' => 'nullable|integer',
+            'project_completed' => 'nullable|integer',
+            'industry_label' => 'required|string|max:255',
+            'industry_heading' => 'required|string|max:255',
+            'industry_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'description.*' => 'nullable|string|max:255',
+            'service_image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'service_description.*' => 'nullable|string|max:255',
+        ], [
+            'business_id.required' => 'Business Type is required.',
+            'business_id.exists' => 'Invalid Business Type selected.',
+            'banner_label.required' => 'Banner Label is required.',
+            'banner_image.image' => 'Banner Image must be a valid image file.',
+            'banner_image.mimes' => 'Banner Image must be in JPG, JPEG, PNG, or WEBP format.',
+            'banner_image.max' => 'Banner Image must not exceed 2MB.',
+            'logo.image' => 'Logo must be a valid image file.',
+            'logo.mimes' => 'Logo must be in JPG, JPEG, PNG, or WEBP format.',
+            'logo.max' => 'Logo must not exceed 2MB.',
+            'banner_heading.required' => 'Banner Heading is required.',
+            'banner_description.max' => 'Banner Description must not exceed 255 characters.',
+            'description.required' => 'Description is required.',
+            'year.integer' => 'Year must be a valid number.',
+            'project_completed.integer' => 'Project Completed must be a valid number.',
+            'industry_label.required' => 'Industry Label is required.',
+            'industry_heading.required' => 'Industry Heading is required.',
+            'industry_image.image' => 'Industry Image must be a valid image file.',
+            'industry_image.mimes' => 'Industry Image must be in JPG, JPEG, PNG, or WEBP format.',
+            'industry_image.max' => 'Industry Image must not exceed 2MB.',
+            'image.*.image' => 'Each Industry Served Image must be a valid image file.',
+            'image.*.mimes' => 'Each Industry Served Image must be in JPG, JPEG, PNG, or WEBP format.',
+            'image.*.max' => 'Each Industry Served Image must not exceed 2MB.',
+            'description.*.max' => 'Each Industry Served Description must not exceed 255 characters.',
+            'service_image.*.image' => 'Each Service Image must be a valid image file.',
+            'service_image.*.mimes' => 'Each Service Image must be in JPG, JPEG, PNG, or WEBP format.',
+            'service_image.*.max' => 'Each Service Image must not exceed 2MB.',
+            'service_description.*.max' => 'Each Service Description must not exceed 255 characters.',
+        ]);
+        
+
+        // Update Banner Image if uploaded
+        if ($request->hasFile('banner_image')) {
+            $bannerImage = $request->file('banner_image');
+            $bannerImageName = time() . rand(10, 999) . '.' . $bannerImage->getClientOriginalExtension();
+            $bannerImage->move(public_path('uploads/business-details/'), $bannerImageName);
+            $businessDetail->banner_image = $bannerImageName;
+        }
+
+        // Update Logo Image if uploaded
+        if ($request->hasFile('logo')) {
+            $logoImage = $request->file('logo');
+            $logoImageName = time() . rand(10, 999) . '.' . $logoImage->getClientOriginalExtension();
+            $logoImage->move(public_path('uploads/business-details/'), $logoImageName);
+            $businessDetail->logo = $logoImageName;
+        }
+
+        // Update Industry Image if uploaded
+        if ($request->hasFile('industry_image')) {
+            $industryImage = $request->file('industry_image');
+            $industryImageName = time() . rand(10, 999) . '.' . $industryImage->getClientOriginalExtension();
+            $industryImage->move(public_path('uploads/business-details/'), $industryImageName);
+            $businessDetail->industry_image = $industryImageName;
+        }
+
+        // Process Industry Served Data (Images and Descriptions Separately)
+        $industryImages = json_decode($businessDetail->industry_images, true) ?? [];
+        $industryDescriptions = json_decode($businessDetail->industry_descriptions, true) ?? [];
+
+        if ($request->has('description')) {
+            foreach ($request->description as $index => $desc) {
+                if ($request->hasFile("image.$index")) {
+                    $image = $request->file('image')[$index];
+                    $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/business-details/'), $imageName);
+                    $industryImages[$index] = $imageName;
+                }
+                $industryDescriptions[$index] = $desc;
+            }
+        }
+
+        // Process Service Data (Images and Descriptions Separately)
+        $serviceImages = json_decode($businessDetail->service_images, true) ?? [];
+        $serviceDescriptions = json_decode($businessDetail->service_descriptions, true) ?? [];
+
+        if ($request->has('service_description')) {
+            foreach ($request->service_description as $index => $serviceDesc) {
+                if ($request->hasFile("service_image.$index")) {
+                    $serviceImage = $request->file('service_image')[$index];
+                    $serviceImageName = time() . rand(10, 999) . '.' . $serviceImage->getClientOriginalExtension();
+                    $serviceImage->move(public_path('uploads/business-details/'), $serviceImageName);
+                    $serviceImages[$index] = $serviceImageName;
+                }
+                $serviceDescriptions[$index] = $serviceDesc;
+            }
+        }
+
+        // Update Business Detail
+        $businessDetail->update([
+            'business_id' => $request->business_id,
+            'banner_label' => $request->banner_label,
+            'banner_heading' => $request->banner_heading,
+            'banner_description' => $request->banner_description,
+            'description' => is_array($request->description) ? json_encode($request->description) : $request->description,
+            'year' => $request->year,
+            'project_completed' => $request->project_completed,
+            'industry_label' => $request->industry_label,
+            'industry_heading' => $request->industry_heading,
+            'industry_images' => json_encode($industryImages),
+            'industry_descriptions' => json_encode($industryDescriptions),
+            'service_heading' => $request->service_heading,
+            'service_images' => json_encode($serviceImages),
+            'service_descriptions' => json_encode($serviceDescriptions),
+            'modified_at' => Carbon::now(),
+            'modified_by' => Auth::id(),
+        ]);
+
+        return redirect()->route('details.index')->with('message', 'Business details updated successfully.');
+    }
+
 }

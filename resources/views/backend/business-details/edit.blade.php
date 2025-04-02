@@ -210,9 +210,11 @@
                                                         <tr>
                                                             <td>
                                                                 <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                                <img src="{{ asset('uploads/business-details/'.$service_images[$index] ?? '') }}" alt="Service Image Preview"
+                                                                <img src="{{ isset($service_images[$index]) ? asset('uploads/business-details/'.$service_images[$index]) : '' }}" 
+                                                                    alt="Service Image Preview"
                                                                     class="img-preview"
                                                                     style="background-color: black; max-width: 30%; height: auto; display: {{ isset($service_images[$index]) ? 'block' : 'none' }}; border: 1px solid #ddd; padding: 5px;">
+
                                                                 <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                                                 <br>
                                                                 <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
