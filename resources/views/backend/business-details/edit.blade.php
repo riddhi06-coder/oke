@@ -189,60 +189,6 @@
                                             <strong>Industry Served</strong>
                                             <button type="button" class="btn btn-success" onclick="addRow()">Add More</button>
                                         </h5>
-<!-- 
-                                        <table class="table table-bordered" id="cardTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Image <span class="txt-danger">*</span></th>
-                                                    <th>Description <span class="txt-danger">*</span></th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="cardTableBody">
-                                                @php
-                                                    $descriptions = old('description', []);
-                                                @endphp
-
-                                                @if (!empty($cardTitles))
-                                                    @foreach ($cardTitles as $index => $title)
-                                                        <tr>
-                                                            <td>
-                                                                <input class="form-control" type="file" name="image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                                <img src="#" alt="Company Logo Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
-                                                                <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                                                                <br>
-                                                                <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                                                            </td>
-
-                                                            <td>
-                                                                <input class="form-control" type="text" name="description[]" value="{{ $descriptions[$index] ?? '' }}" placeholder="Enter Description *" required>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @else
-                                                    <tr>
-                                                        <td>
-                                                            <input class="form-control" type="file" name="image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                            <img src="#" alt="Company Logo Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
-                                                            <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                                                            <br>
-                                                            <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" type="text" name="description[]" placeholder="Enter Description" required>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            </tbody>
-                                        </table> -->
-
-
 
                                         <table class="table table-bordered" id="cardTable">
                                             <thead>
@@ -284,9 +230,6 @@
                                             </tbody>
                                         </table>
 
-
-
-
                                         <hr class="my-5"> <!-- Added large spacing between tables -->
                                         <h4 class="mt-5">Service Details</h4><br>   
 
@@ -304,7 +247,6 @@
                                         </h5>
 
 
-                                        
                                         <table class="table table-bordered" id="serviceTable">
                                             <thead>
                                                 <tr>
@@ -314,21 +256,33 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="serviceTableBody">
-                                                <tr>
-                                                    <td>
-                                                        <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                        <img src="#" alt="Service Image Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
-                                                        <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                                                        <br>
-                                                        <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" type="text" name="service_description[]" placeholder="Enter Service Description" required>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-                                                    </td>
-                                                </tr>
+                                                @php
+                                                    $existingServiceImages = json_decode($business_details->service_images ?? '[]', true);
+                                                    $existingServiceDescriptions = json_decode($business_details->service_descriptions ?? '[]', true);
+                                                @endphp
+
+                                                {{-- Display existing service images if available --}}
+                                                @if (!empty($existingServiceImages))
+                                                    @foreach ($existingServiceImages as $index => $image)
+                                                        <tr>
+                                                            <td>
+                                                                <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewLogoImage(event, this)">
+                                                                <img src="{{ asset('uploads/business-details/' . $image) }}" alt="Service Image Preview" class="img-preview"
+                                                                    style="background-color: black; max-width: 30%; height: auto; border: 1px solid #ddd; padding: 5px; display: block;">
+                                                                <input type="hidden" name="existing_service_images[]" value="{{ $image }}">
+                                                                <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
+                                                                <br>
+                                                                <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" type="text" name="service_description[]" value="{{ $existingServiceDescriptions[$index] ?? '' }}" placeholder="Enter Service Description" required>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
 

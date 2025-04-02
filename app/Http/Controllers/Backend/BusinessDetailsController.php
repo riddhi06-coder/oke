@@ -264,27 +264,24 @@ class BusinessDetailsController extends Controller
         }
 
 
-        
-        // Process Service Data (Images and Descriptions Separately)
-        $serviceImages = json_decode($businessDetail->service_images, true) ?? [];
-        $serviceDescriptions = json_decode($businessDetail->service_descriptions, true) ?? [];
 
-        if ($request->has('service_description')) {
-            foreach ($request->service_description as $index => $serviceDesc) {
-                if ($request->hasFile("service_image.$index")) {
-                    $serviceImage = $request->file('service_image')[$index];
+        // Retrieve existing service images and descriptions
+        $serviceImages = $request->existing_service_images ?? [];
+        $serviceDescriptions = $request->service_description ?? [];
+
+        // Handle new service image uploads
+        if ($request->hasFile('service_image')) {
+            foreach ($request->file('service_image') as $index => $serviceImage) {
+                if ($serviceImage) {
                     $serviceImageName = time() . rand(10, 999) . '.' . $serviceImage->getClientOriginalExtension();
                     $serviceImage->move(public_path('uploads/business-details/'), $serviceImageName);
 
-                    // Append new image instead of replacing
+                    // Append new service image path instead of replacing
                     $serviceImages[] = $serviceImageName;
+                    $serviceDescriptions[] = $request->service_description[$index] ?? '';
                 }
-
-                // Append new description instead of replacing
-                $serviceDescriptions[] = $serviceDesc;
             }
         }
-
 
         // Update Business Detail
         $businessDetail->update([
