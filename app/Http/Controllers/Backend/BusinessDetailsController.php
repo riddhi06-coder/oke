@@ -21,7 +21,15 @@ class BusinessDetailsController extends Controller
 
     public function index()
     {
-        return view('backend.business-details.index');
+        $details = BusinessDetail::select(
+                'business_details.*',
+                'business.business_name'
+            )
+            ->join('business', 'business.id', '=', 'business_details.business_id')
+            ->whereNull('business_details.deleted_by')
+            ->get();
+    
+        return view('backend.business-details.index', compact('details'));
     }
     
     public function create(Request $request)
@@ -151,5 +159,12 @@ class BusinessDetailsController extends Controller
         
 
         return redirect()->route('details.index')->with('message', 'Business details added successfully.');
+    }
+
+    public function edit($id)
+    {
+        $business_details = BusinessDetail::findOrFail($id); 
+        $businesses = Business::wherenull('deleted_by')->pluck('business_name', 'id'); 
+        return view('backend.about.edit', compact('business_details','businesses'));
     }
 }

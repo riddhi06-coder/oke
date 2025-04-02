@@ -101,7 +101,7 @@
 
                                             <!-- Image Preview -->
                                             <div class="mt-2">
-                                                <img id="pageimagepreview" src="#" alt="Image Preview" style="max-width: 100%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                <img id="pageimagepreview" src="#" alt="Image Preview" style="background-color: black; max-width: 100%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
                                             </div>
                                         </div>
 
@@ -167,7 +167,7 @@
 
                                             <!-- Image Preview -->
                                             <div class="mt-2">
-                                                <img id="IndustryImagepreview" src="#" alt="Image Preview" style="max-width: 100%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                <img id="IndustryImagepreview" src="#" alt="Image Preview" style="background-color: black; max-width: 100%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
                                             </div>
                                         </div>
 
@@ -195,7 +195,7 @@
                                                         <tr>
                                                             <td>
                                                                 <input class="form-control" type="file" name="image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                                <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
+                                                                <img src="#" alt="Company Logo Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
                                                                 <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                                                 <br>
                                                                 <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -213,7 +213,7 @@
                                                     <tr>
                                                         <td>
                                                             <input class="form-control" type="file" name="image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                            <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
+                                                            <img src="#" alt="Company Logo Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
                                                             <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                                             <br>
                                                             <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -258,7 +258,7 @@
                                                 <tr>
                                                     <td>
                                                         <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                        <img src="#" alt="Service Image Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
+                                                        <img src="#" alt="Service Image Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;" required>
                                                         <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                                                         <br>
                                                         <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -402,7 +402,7 @@
                 newRow.innerHTML = `
                     <td>
                         <input class="form-control" type="file" name="image[]" accept="image/*" onchange="previewLogoImage(event, this)" required>
-                        <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                        <img src="#" alt="Company Logo Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
                         <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                         <br>
                         <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
@@ -439,7 +439,7 @@
                 newRow.innerHTML = `
                     <td>
                         <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewServiceImage(event, this)" required>
-                        <img src="#" alt="Service Image Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                        <img src="#" alt="Service Image Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
                         <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
                         <br>
                         <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
