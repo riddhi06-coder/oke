@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BusinessController;
 use App\Http\Controllers\Backend\BusinessDetailsController;
 
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\DetailController;
 
 
 // Route::get('/', function () {
@@ -50,4 +51,6 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     
     Route::get('/', [HomePageController::class, 'index'])->name('home.page');
     Route::get('/about-us', [HomePageController::class, 'about'])->name('about.us');
+    Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
+
 });

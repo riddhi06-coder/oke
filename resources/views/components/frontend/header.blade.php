@@ -21,14 +21,18 @@
                   <li class="menu-item-has-children">
                     <a href="#">Business <i class="fa fa-angle-down"></i></a>
                     <div class="sub-menu single-column-menu">
-                      <ul>
-                        <li><a href="arvos.html">Arvos</a></li>
-                        <li><a href="rsb.html">RSB</a></li>
-                        <li><a href="coming-soon.html">Catalyst</a></li>
-                        <li><a href="coming-soon.html">Battery</a></li>
-                      </ul>
+                        <ul>
+                            @php
+                                $businesses = \App\Models\Business::whereNull('deleted_by')->get();
+                            @endphp
+                            @foreach($businesses as $business)
+                                <li><a href="{{ route('display.detail', $business->slug) }}">{{ $business->business_name }}</a></li>
+                            @endforeach
+                        </ul>
                     </div>
                   </li>
+
+
                   <li><a href="{{ route('about.us') }}">About OKE</a></li>
                   <!-- <li><a href="coming-soon.html">Events & Exhibitions</a></li>
                   <li><a href="coming-soon.html">Blogs</a></li>
