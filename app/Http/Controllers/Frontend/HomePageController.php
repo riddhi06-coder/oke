@@ -43,4 +43,9 @@ class HomePageController extends Controller
         return view('frontend.about', compact('about'));
     }
 
+    public function commingSoon()
+    {
+        return view('frontend.comming-soon');
+    }
+
 }

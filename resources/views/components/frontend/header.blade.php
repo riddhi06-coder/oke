@@ -25,13 +25,21 @@
                             @php
                                 $businesses = \App\Models\Business::whereNull('deleted_by')->get();
                             @endphp
+
                             @foreach($businesses as $business)
-                                <li><a href="{{ route('display.detail', $business->slug) }}">{{ $business->business_name }}</a></li>
+                                @php
+                                    $exists = \App\Models\BusinessDetail::where('business_id', $business->id)->whereNull('deleted_by')->exists();
+                                @endphp
+
+                                @if ($exists)
+                                    <li><a href="{{ route('display.detail', $business->slug) }}">{{ $business->business_name }}</a></li>
+                                @else
+                                    <li><a href="{{ route('comming-soon') }}">{{ $business->business_name }}</a></li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                   </li>
-
 
                   <li><a href="{{ route('about.us') }}">About OKE</a></li>
                   <!-- <li><a href="coming-soon.html">Events & Exhibitions</a></li>

@@ -20,13 +20,11 @@ class DetailController extends Controller
 
     public function details($slug)
     {
-        // Fetch the business using the slug
         $business = Business::where('slug', $slug)->firstOrFail();
     
-        // Fetch only one business detail record (assuming you need one)
         $details = BusinessDetail::where('business_id', $business->id)
                     ->whereNull('deleted_by')
-                    ->first(); // Use `first()` instead of `get()`
+                    ->first(); 
     
         return view('frontend.business-detail-page', compact('business', 'details'));
     }

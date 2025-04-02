@@ -53,4 +53,8 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     Route::get('/about-us', [HomePageController::class, 'about'])->name('about.us');
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
 
+    // ===== Comming Soon
+    Route::get('/coming-soon', [HomePageController::class, 'commingSoon'])->name('comming-soon');
+ 
+
 });
