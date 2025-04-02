@@ -50,12 +50,28 @@
                                     <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('details.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
-                                        <h4> Banner Details </h4><br>
+                                        <!-- Business Type -->
+                                        <div class="col-xxl-4 col-sm-6 mb-5">
+                                            <label class="form-label" for="business_id">Business Type <span class="txt-danger">*</span></label>
+                                            <select class="form-control" id="business_id" name="business_id" required>
+                                                <option value="" disabled selected>Select Business Type</option>
+                                                @foreach ($businesses as $id => $name)
+                                                    <option value="{{ $id }}" {{ old('business_id') == $id ? 'selected' : '' }}>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Please select a Business Type.</div>
+                                        </div>
+                                        <hr>
+                                        <h4 class="mt-5"> Banner Details </h4>
+
+
 
                                         <!-- Banner Label -->
                                         <div class="col-xxl-4 col-sm-6">
                                             <label class="form-label" for="banner_label">Banner Label <span class="txt-danger">*</span></label>
-                                            <input class="form-control" id="banner_label" type="text" label="banner_label" placeholder="Enter Banner Label" value="{{ old('business_label') }}" required>
+                                            <input class="form-control" id="banner_label" type="text" name="banner_label" label="banner_label" placeholder="Enter Banner Label" value="{{ old('banner_label') }}" required>
                                             <div class="invalid-feedback">Please enter a Banner Label.</div>
                                         </div>
 
@@ -116,9 +132,9 @@
                                         </div>
 
                                         <div class="col-12 mb-5"> <!-- Added mb-5 for larger gap -->
-                                            <label class="form-label" for="description">Banner Description <span class="txt-danger">*</span></label>
-                                            <textarea id="description" name="description" class="form-control summernote" required>
-                                                {{ old('description', $homePage->description ?? '') }}
+                                            <label class="form-label" for="banner_description">Banner Description</label>
+                                            <textarea id="banner_description" name="banner_description" class="form-control summernote">
+                                                {{ old('banner_description', $homePage->banner_description ?? '') }}
                                             </textarea>
                                         </div>
 
@@ -216,7 +232,7 @@
                                         <hr class="my-5"> <!-- Added large spacing between tables -->
                                         <h4 class="mt-5">Service Details</h4><br>   
 
-                                        
+
                                         <!-- Service Heading -->
                                         <div class="col-xxl-4 col-sm-6 mb-4">
                                             <label class="form-label" for="service_heading">Service Heading <span class="txt-danger">*</span></label>
