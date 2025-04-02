@@ -151,7 +151,40 @@
                                         <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
                                     </h5>
 
+                                    
 
+                                    <table class="table table-bordered mb-4" id="serviceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Business Name <span class="txt-danger">*</span></th>
+                                                <th>Email Id <span class="txt-danger">*</span></th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="serviceTableBody">
+                                            <tr>
+                                                <td>
+                                                    <input class="form-control" type="text" name="b_name[]" placeholder="Enter Business Name" required>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="email_id[]" placeholder="Enter Email Id" required>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <hr>
+                                    <h5 class="mb-4 mt-3 d-flex justify-content-between">
+                                        <strong># Contact Card Details</strong>
+                                        <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
+                                    </h5>
+
+
+                                    
                                     <table class="table table-bordered" id="contactTable">
                                         <thead>
                                             <tr>
@@ -216,37 +249,7 @@
 
 
 
-                                    <hr>
-                                    <h5 class="mb-4 mt-3 d-flex justify-content-between">
-                                        <strong># Contact Card Details</strong>
-                                        <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
-                                    </h5>
-
-
-                                    <table class="table table-bordered mb-4" id="serviceTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Business Name <span class="txt-danger">*</span></th>
-                                                <th>Email Id <span class="txt-danger">*</span></th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="serviceTableBody">
-                                            <tr>
-                                                <td>
-                                                    <input class="form-control" type="text" name="b_name[]" placeholder="Enter Business Name" required>
-                                                </td>
-                                                <td>
-                                                    <input class="form-control" type="text" name="email_id[]" placeholder="Enter Email Id" required>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
+                                    
                                     <!-- Form Actions -->
                                     <div class="col-12 text-end">
                                         <a href="{{ route('contact-details.index') }}" class="btn btn-danger px-4">Cancel</a>
