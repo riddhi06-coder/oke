@@ -99,7 +99,7 @@
                                         <button type="button" class="btn btn-success" onclick="addRow()">Add More</button>
                                     </h5>
 
-                                    <table class="table table-bordered" id="cardTable">
+                                    <table class="table table-bordered mb-4" id="cardTable">
                                         <thead>
                                             <tr>
                                                 <th>Business Name <span class="txt-danger">*</span></th>
@@ -141,6 +141,108 @@
                                                     </td>
                                                 </tr>
                                             @endif
+                                        </tbody>
+                                    </table>
+
+
+                                    <hr>
+                                    <h5 class="mb-4 mt-3 d-flex justify-content-between">
+                                        <strong># Business Emails</strong>
+                                        <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
+                                    </h5>
+
+
+                                    <table class="table table-bordered" id="contactTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Business Name</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Contact</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contactTableBody">
+                                            @php
+                                                $cardTitles = old('card_title', []);
+                                                $companyNames = old('company_name', []);
+                                                $descriptions = old('description', []);
+                                            @endphp
+
+                                            @if (!empty($cardTitles))
+                                                @foreach ($cardTitles as $index => $title)
+                                                    <tr>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="card_title[]" value="{{ $title }}" placeholder="Enter Card Title">
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="file" name="company_logo[]" accept="image/*" onchange="previewLogoImage(event, this)">
+                                                            <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="company_name[]" value="{{ $companyNames[$index] ?? '' }}" placeholder="Enter Company Name">
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="text" name="description[]" value="{{ $descriptions[$index] ?? '' }}" placeholder="Enter Description">
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control" type="text" name="card_title[]" placeholder="Enter Card Title">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" type="file" name="company_logo[]" accept="image/*" onchange="previewLogoImage(event, this)">
+                                                        <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" type="text" name="company_name[]" placeholder="Enter Company Name">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" type="text" name="description[]" placeholder="Enter Description">
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+
+
+
+
+                                    <hr>
+                                    <h5 class="mb-4 mt-3 d-flex justify-content-between">
+                                        <strong># Contact Card Details</strong>
+                                        <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
+                                    </h5>
+
+
+                                    <table class="table table-bordered mb-4" id="serviceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Business Name <span class="txt-danger">*</span></th>
+                                                <th>Email Id <span class="txt-danger">*</span></th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="serviceTableBody">
+                                            <tr>
+                                                <td>
+                                                    <input class="form-control" type="text" name="b_name[]" placeholder="Enter Business Name" required>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="email_id[]" placeholder="Enter Email Id" required>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
 
@@ -224,17 +326,21 @@
             button.closest("tr").remove();
         }
 
-        function previewLogoImage(event, input) {
-            let file = input.files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let img = input.nextElementSibling;
-                    img.src = e.target.result;
-                    img.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
+
+        function addServiceRow() {
+            let tableBody = document.getElementById("serviceTableBody");
+            let newRow = document.createElement("tr");
+            newRow.innerHTML = `
+            
+                <td><input class="form-control" type="text" name="b_name[]" placeholder="Enter Business Name" required></td>
+                <td><input class="form-control" type="text" name="email_id[]" placeholder="Enter Email Id" required></td>
+                <td><button type="button" class="btn btn-danger" onclick="removeServiceRow(this)">Remove</button></td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+
+        function removeServiceRow(button) {
+            button.closest("tr").remove();
         }
 
     </script>
