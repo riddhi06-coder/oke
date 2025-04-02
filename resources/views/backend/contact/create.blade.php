@@ -180,7 +180,7 @@
                                     <hr>
                                     <h5 class="mb-4 mt-3 d-flex justify-content-between">
                                         <strong># Contact Card Details</strong>
-                                        <button type="button" class="btn btn-success" onclick="addServiceRow()">Add More</button>
+                                        <button type="button" class="btn btn-success" onclick="addContactRow()">Add More</button>
                                     </h5>
 
 
@@ -188,35 +188,36 @@
                                     <table class="table table-bordered" id="contactTable">
                                         <thead>
                                             <tr>
-                                                <th>Business Name</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Contact</th>
+                                                <th>Business Name <span class="txt-danger">*</span></th>
+                                                <th>Name <span class="txt-danger">*</span></th>
+                                                <th>Email <span class="txt-danger">*</span></th>
+                                                <th>Contact <span class="txt-danger">*</span></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="contactTableBody">
                                             @php
-                                                $cardTitles = old('card_title', []);
-                                                $companyNames = old('company_name', []);
-                                                $descriptions = old('description', []);
+                                                $b_names = old('business_n', []);
+                                                $names = old('name', []);
+                                                $emails = old('email', []);
+                                                $contacts = old('phone', []);
                                             @endphp
 
-                                            @if (!empty($cardTitles))
-                                                @foreach ($cardTitles as $index => $title)
+                                            @if (!empty($b_names))
+                                                @foreach ($b_names as $index => $title)
                                                     <tr>
                                                         <td>
-                                                            <input class="form-control" type="text" name="card_title[]" value="{{ $title }}" placeholder="Enter Card Title">
+                                                            <input class="form-control" type="text" name="business_n[]" value="{{ $title }}" placeholder="Enter Business Name">
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            <input class="form-control" type="text" name="name[]" value="{{ $names[$index] ?? '' }}" placeholder="Enter Name">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="file" name="company_logo[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                            <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                            <input class="form-control" type="text" name="email[]" value="{{ $emails[$index] ?? '' }}" placeholder="Enter Email">
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="text" name="company_name[]" value="{{ $companyNames[$index] ?? '' }}" placeholder="Enter Company Name">
-                                                        </td>
-                                                        <td>
-                                                            <input class="form-control" type="text" name="description[]" value="{{ $descriptions[$index] ?? '' }}" placeholder="Enter Description">
+                                                            <input class="form-control" type="text" name="phone[]" value="{{ $contacts[$index] ?? '' }}" placeholder="Enter Contact">
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
@@ -226,17 +227,17 @@
                                             @else
                                                 <tr>
                                                     <td>
-                                                        <input class="form-control" type="text" name="card_title[]" placeholder="Enter Card Title">
+                                                        <input class="form-control" type="text" name="business_n[]" placeholder="Enter Business Name">
+                                                    </td>
+                                                   
+                                                    <td>
+                                                        <input class="form-control" type="text" name="name[]" placeholder="Enter Name">
                                                     </td>
                                                     <td>
-                                                        <input class="form-control" type="file" name="company_logo[]" accept="image/*" onchange="previewLogoImage(event, this)">
-                                                        <img src="#" alt="Company Logo Preview" class="img-preview" style="max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                                                        <input class="form-control" type="text" name="email[]" placeholder="Enter Email">
                                                     </td>
                                                     <td>
-                                                        <input class="form-control" type="text" name="company_name[]" placeholder="Enter Company Name">
-                                                    </td>
-                                                    <td>
-                                                        <input class="form-control" type="text" name="description[]" placeholder="Enter Description">
+                                                        <input class="form-control" type="text" name="phone[]" placeholder="Enter Contact">
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
@@ -249,7 +250,7 @@
 
 
 
-                                    
+
                                     <!-- Form Actions -->
                                     <div class="col-12 text-end">
                                         <a href="{{ route('contact-details.index') }}" class="btn btn-danger px-4">Cancel</a>
@@ -330,6 +331,7 @@
         }
 
 
+
         function addServiceRow() {
             let tableBody = document.getElementById("serviceTableBody");
             let newRow = document.createElement("tr");
@@ -343,6 +345,35 @@
         }
 
         function removeServiceRow(button) {
+            button.closest("tr").remove();
+        }
+
+
+        
+        function addContactRow() {
+            let tableBody = document.getElementById("contactTableBody");
+            let newRow = document.createElement("tr");
+            newRow.innerHTML = `
+            
+               <td>
+                    <input class="form-control" type="text" name="business_n[]" placeholder="Enter Business Name">
+                </td>
+                
+                <td>
+                    <input class="form-control" type="text" name="name[]" placeholder="Enter Name">
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="email[]" placeholder="Enter Email">
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="phone[]" placeholder="Enter Contact">
+                </td>
+                <td><button type="button" class="btn btn-danger" onclick="removeContactRow(this)">Remove</button></td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+
+        function removeContactRow(button) {
             button.closest("tr").remove();
         }
 
