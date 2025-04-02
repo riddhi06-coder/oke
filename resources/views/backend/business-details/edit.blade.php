@@ -198,11 +198,11 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="serviceTableBody">
+                                            <tbody id="cardTableBody">
                                                 @php
                                                     // Ensure descriptions and images are arrays
-                                                    $service_descriptions = old('service_description', json_decode($business_details->service_descriptions, true) ?? []);
-                                                    $service_images = old('service_image', json_decode($business_details->service_images, true) ?? []);
+                                                    $service_descriptions = old('service_description', json_decode($business_details->industry_descriptions, true) ?? []);
+                                                    $service_images = old('service_image', json_decode($business_details->industry_images, true) ?? []);
                                                 @endphp
 
                                                 @if (!empty($service_descriptions))
@@ -350,7 +350,7 @@
    
        @include('components.backend.main-js')
 
-       <!-- Image Preview-->
+      <!-- Image Preview-->
         <script>
             function previewImage(event) {
                 const file = event.target.files[0];
@@ -518,6 +518,7 @@
             }
 
         </script>
+
 
        
 </body>
