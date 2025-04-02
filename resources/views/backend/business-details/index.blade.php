@@ -71,7 +71,7 @@
                                         @if($detail->logo)
                                             <img src="{{ asset('uploads/business-details/' . $detail->logo) }}" 
                                                 alt="Business Logo" 
-                                                width="90px" 
+                                                width="100px" 
                                                 style="background-color: black; padding: 5px; border-radius: 5px;">
                                         @else
                                             N/A

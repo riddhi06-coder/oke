@@ -31,7 +31,7 @@ class BusinessDetailsController extends Controller
     
         return view('backend.business-details.index', compact('details'));
     }
-    
+
     public function create(Request $request)
     { 
         $businesses = Business::wherenull('deleted_by')->pluck('business_name', 'id'); 
@@ -165,6 +165,6 @@ class BusinessDetailsController extends Controller
     {
         $business_details = BusinessDetail::findOrFail($id); 
         $businesses = Business::wherenull('deleted_by')->pluck('business_name', 'id'); 
-        return view('backend.about.edit', compact('business_details','businesses'));
+        return view('backend.business-details.edit', compact('business_details','businesses'));
     }
 }
