@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Backend\HomeController;
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BusinessController;
-
+use App\Http\Controllers\Backend\BusinessDetailsController;
 
 use App\Http\Controllers\Frontend\HomePageController;
 
@@ -38,6 +38,10 @@ Route::resource('about', AboutController::class);
 
 // ==== Manage Bussiness Master
 Route::resource('business', BusinessController::class);
+
+// ==== Manage Bussiness Details
+Route::resource('details', BusinessDetailsController::class);
+
 
 
 
