@@ -245,22 +245,26 @@ class BusinessDetailsController extends Controller
             $businessDetail->industry_image = $industryImageName;
         }
 
-        // Process Industry Served Data (Images and Descriptions Separately)
-        $industryImages = json_decode($businessDetail->industry_images, true) ?? [];
-        $industryDescriptions = json_decode($businessDetail->industry_descriptions, true) ?? [];
+        // Retrieve existing images and descriptions
+        $images = $request->existing_images ?? [];
+        $descriptions = $request->description ?? [];
 
-        if ($request->has('description')) {
-            foreach ($request->description as $index => $desc) {
-                if ($request->hasFile("image.$index")) {
-                    $image = $request->file('image')[$index];
+        // Handle new image uploads
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $index => $image) {
+                if ($image) {
                     $imageName = time() . rand(10, 999) . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('uploads/business-details/'), $imageName);
-                    $industryImages[$index] = $imageName;
+
+                    // Append new image path instead of replacing
+                    $images[] = $imageName;
+                    $descriptions[] = $request->description[$index] ?? '';
                 }
-                $industryDescriptions[$index] = $desc;
             }
         }
 
+
+        
         // Process Service Data (Images and Descriptions Separately)
         $serviceImages = json_decode($businessDetail->service_images, true) ?? [];
         $serviceDescriptions = json_decode($businessDetail->service_descriptions, true) ?? [];
@@ -271,11 +275,16 @@ class BusinessDetailsController extends Controller
                     $serviceImage = $request->file('service_image')[$index];
                     $serviceImageName = time() . rand(10, 999) . '.' . $serviceImage->getClientOriginalExtension();
                     $serviceImage->move(public_path('uploads/business-details/'), $serviceImageName);
-                    $serviceImages[$index] = $serviceImageName;
+
+                    // Append new image instead of replacing
+                    $serviceImages[] = $serviceImageName;
                 }
-                $serviceDescriptions[$index] = $serviceDesc;
+
+                // Append new description instead of replacing
+                $serviceDescriptions[] = $serviceDesc;
             }
         }
+
 
         // Update Business Detail
         $businessDetail->update([
@@ -288,8 +297,8 @@ class BusinessDetailsController extends Controller
             'project_completed' => $request->project_completed,
             'industry_label' => $request->industry_label,
             'industry_heading' => $request->industry_heading,
-            'industry_images' => json_encode($industryImages),
-            'industry_descriptions' => json_encode($industryDescriptions),
+            'industry_images' => json_encode($images),
+            'industry_descriptions' => json_encode($descriptions),
             'service_heading' => $request->service_heading,
             'service_images' => json_encode($serviceImages),
             'service_descriptions' => json_encode($serviceDescriptions),
