@@ -116,7 +116,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form id="contactForm" method="POST" action="send_mail.php" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <form id="contactForm" method="POST" action="{{ route('send.mail') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+                            @csrf
                             <div class="heading white-heading">
                                 <h2>Contact Form</h2>
                                 <h3>Feel free to write us anytime</h3>

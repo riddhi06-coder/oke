@@ -55,6 +55,9 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     Route::get('/about-us', [HomePageController::class, 'about'])->name('about.us');
     Route::get('/coming-soon', [HomePageController::class, 'commingSoon'])->name('comming.soon');
     Route::get('/contact-us', [HomePageController::class, 'contact_us'])->name('contact.us');
+    Route::get('/thank-you', [HomePageController::class, 'thankyou'])->name('thank.you');
+    Route::post('/send-mail', [HomePageController::class, 'sendContactMail'])->name('send.mail');
+
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
 
  

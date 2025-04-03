@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\HomePage;
 use App\Models\About;
@@ -50,6 +52,12 @@ class HomePageController extends Controller
     }
 
 
+    public function thankyou()
+    {
+        return view('frontend.thank-you');
+    }
+
+
     public function contact_us()
     {
         $contact_us = ContactDetail::whereNull('deleted_by')->first();
@@ -67,9 +75,43 @@ class HomePageController extends Controller
             $contact_us->contactPhones = json_decode($contact_us->contact_phones, true) ?? [];
         }
 
-        // dd($contact_us);
         return view('frontend.contact', compact('contact_us'));
     
     }
+
+    public function sendContactMail(Request $request)
+    {
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|digits:10',
+            'enquiry_id' => 'required',
+            'message' => 'required|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        // Email data
+        $emailData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'enquiry' => $request->enquiry_id,
+            'message' => $request->message,
+        ];
+    
+        // Send email
+        Mail::send('frontend.contact_form_email', ['emailData' => $emailData], function ($message) use ($emailData) {
+            $message->to('riddhi@matrixbricks.com')
+                    ->subject('New Contact Form Submission')
+                    ->from($emailData['email'], $emailData['name']);
+        });
+    
+        return redirect()->route('thank.you')->with('success', 'Your message has been sent successfully!');
+    }
+    
 
 }
