@@ -207,18 +207,25 @@
                                                 @foreach ($b_names as $index => $title)
                                                     <tr>
                                                         <td>
-                                                            <input class="form-control" type="text" name="business_n[]" value="{{ $title }}" placeholder="Enter Business Name">
+                                                            <input class="form-control" type="text" name="business_n[]" value="{{ $title }}" placeholder="Enter Business Name" required>
                                                         </td>
                                                        
                                                         <td>
-                                                            <input class="form-control" type="text" name="name[]" value="{{ $names[$index] ?? '' }}" placeholder="Enter Name">
+                                                            <input class="form-control" type="text" name="name[]" value="{{ $names[$index] ?? '' }}" placeholder="Enter Name" required>
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="text" name="email[]" value="{{ $emails[$index] ?? '' }}" placeholder="Enter Email">
+                                                            <input class="form-control" type="text" name="email[]" value="{{ $emails[$index] ?? '' }}" placeholder="Enter Email" required>
                                                         </td>
                                                         <td>
-                                                            <input class="form-control" type="text" name="phone[]" value="{{ $contacts[$index] ?? '' }}" placeholder="Enter Contact">
+                                                            <input class="form-control" type="text" name="phone[]" 
+                                                                value="{{ $contacts[$index] ?? '' }}" 
+                                                                placeholder="Enter Contact" 
+                                                                pattern="\d{10}" 
+                                                                maxlength="10"
+                                                                title="Please enter a 10-digit contact number."
+                                                                required>
                                                         </td>
+
                                                         <td>
                                                             <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
                                                         </td>
@@ -227,17 +234,20 @@
                                             @else
                                                 <tr>
                                                     <td>
-                                                        <input class="form-control" type="text" name="business_n[]" placeholder="Enter Business Name">
+                                                        <input class="form-control" type="text" name="business_n[]" placeholder="Enter Business Name" required>
                                                     </td>
                                                    
                                                     <td>
-                                                        <input class="form-control" type="text" name="name[]" placeholder="Enter Name">
+                                                        <input class="form-control" type="text" name="name[]" placeholder="Enter Name" required>
                                                     </td>
                                                     <td>
-                                                        <input class="form-control" type="text" name="email[]" placeholder="Enter Email">
+                                                        <input class="form-control" type="text" name="email[]" placeholder="Enter Email" required>
                                                     </td>
                                                     <td>
-                                                        <input class="form-control" type="text" name="phone[]" placeholder="Enter Contact">
+                                                        <input class="form-control" type="text" name="phone[]" placeholder="Enter Contact" pattern="\d{10}" 
+                                                                maxlength="10"
+                                                                title="Please enter a 10-digit contact number."
+                                                                required>
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
@@ -246,10 +256,6 @@
                                             @endif
                                         </tbody>
                                     </table>
-
-
-
-
 
                                     <!-- Form Actions -->
                                     <div class="col-12 text-end">
