@@ -13,7 +13,7 @@
                 <!-- <li><a class="footer-link" href="events-exhibitions.html">Events & Exhibitions</a></li>
                   <li><a class="footer-link" href="blog.html">Blogs</a></li>
                   <li><a class="footer-link" href="career.html">Careers</a></li> -->
-                <li><a class="footer-link" href="contact.html">Contact Us</a></li>
+                <li><a class="footer-link" href="{{ route('contact.us') }}">Contact Us</a></li>
               </ul>
               <div class="pattern-box"></div>
               <div class="footer-social-items">
