@@ -56,14 +56,31 @@
                         <thead>
                           <tr>
                             <th>#</th>
+                            <th>Banner Title</th>
+                            <th>Banner Image</th>
                             <th>Address</th>
-                            <th>Contact</th>
-                            <th>Email</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          
+                            @foreach($contacts as $key => $contact)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $contact->banner_title }}</td>
+                                    <td>
+                                        <img src="{{ asset('uploads/contact-details/' . $contact->banner_image) }}" alt="Banner" width="80">
+                                    </td>
+                                    <td>{{ $contact->address }}</td>
+                                    <td>
+                                        <a href="{{ route('contact-details.edit', $contact->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <form action="{{ route('contact-details.destroy', $contact->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                       </table>
                     </div>

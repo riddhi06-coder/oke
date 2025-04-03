@@ -19,7 +19,8 @@ class ContactDetailsController extends Controller
 
     public function index()
     {
-        return view('backend.contact.index');
+        $contacts = ContactDetail::all(); 
+        return view('backend.contact.index', compact('contacts'));
     }
     
     public function create(Request $request)
@@ -142,6 +143,7 @@ class ContactDetailsController extends Controller
 
         return redirect()->route('contact-details.index')->with('message', 'Contact details stored successfully.');
     }
+
 
 
 }
