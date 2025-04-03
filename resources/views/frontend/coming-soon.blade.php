@@ -16,7 +16,7 @@
                     <h1>Coming Soon</h1>
                     <h3>Exciting things are on the horizon stay tuned for the next big chapter</h3>
                     <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ route('home.page') }}">Home</a></li>
                     <li>Coming Soon</li>
                     </ul>
                 </div>
@@ -30,14 +30,14 @@
             <div class="row">
                 <div class="col-md-12">
                 <div class="comin-soon-sec-img">
-                    <img src="images/home/coming-soon.png" class="img-responsive">
+                    <img src="{{ asset('frontend/assets/images/home/coming-soon.png') }}" class="img-responsive">
                 </div>
                 <div class="comin-sec-btn">
                     <a href="index.html">
                     <button class="btn-primary btn-grey text-center-center margin-auto">
                         <span>Back to Home</span>
                         <span class="btn-primary-inner">
-                        <img src="images/icons/btn.svg">
+                        <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
                         </span>
                     </button>
                     </a>

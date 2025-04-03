@@ -34,7 +34,7 @@
                                 @if ($exists)
                                     <li><a href="{{ route('display.detail', $business->slug) }}">{{ $business->business_name }}</a></li>
                                 @else
-                                    <li><a href="{{ route('comming-soon') }}">{{ $business->business_name }}</a></li>
+                                    <li><a href="{{ route('comming.soon') }}">{{ $business->business_name }}</a></li>
                                 @endif
                             @endforeach
                         </ul>
@@ -45,7 +45,7 @@
                   <!-- <li><a href="coming-soon.html">Events & Exhibitions</a></li>
                   <li><a href="coming-soon.html">Blogs</a></li>
                   <li><a href="coming-soon.html">Careers</a></li> -->
-                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                 </ul>
               </nav>
             </div><!-- menu end here -->

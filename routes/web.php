@@ -53,10 +53,10 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     
     Route::get('/', [HomePageController::class, 'index'])->name('home.page');
     Route::get('/about-us', [HomePageController::class, 'about'])->name('about.us');
+    Route::get('/coming-soon', [HomePageController::class, 'commingSoon'])->name('comming.soon');
+    Route::get('/contact-us', [HomePageController::class, 'contact_us'])->name('contact.us');
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
 
-    // ===== Comming Soon
-    Route::get('/coming-soon', [HomePageController::class, 'commingSoon'])->name('comming-soon');
  
 
 });
