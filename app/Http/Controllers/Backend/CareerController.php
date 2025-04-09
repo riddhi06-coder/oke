@@ -114,4 +114,11 @@ class CareerController extends Controller
 
         return redirect()->route('page-career.index')->with('message', 'Career page data saved successfully!');
     }
+
+    public function edit($id)
+    {
+        $career = PageCareer::findOrFail($id);
+        return view('backend.career.edit', compact('career'));
+    }
+    
 }
