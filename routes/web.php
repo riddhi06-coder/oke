@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BusinessController;
 use App\Http\Controllers\Backend\BusinessDetailsController;
 use App\Http\Controllers\Backend\ContactDetailsController;
 use App\Http\Controllers\Backend\CareerController;
+use App\Http\Controllers\Backend\JobRolesController;
 
 
 use App\Http\Controllers\Frontend\HomePageController;
@@ -49,9 +50,11 @@ Route::resource('details', BusinessDetailsController::class);
 // ==== Manage Contact Details
 Route::resource('contact-details', ContactDetailsController::class);
 
-// ==== Manage Career
+// ==== Manage Career Page Details
 Route::resource('page-career', CareerController::class);
 
+// ==== Manage Job Roles
+Route::resource('job-roles', JobRolesController::class);
 
 
 Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHistoryMiddleware::class]],function(){

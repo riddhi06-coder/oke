@@ -208,6 +208,7 @@ class CareerController extends Controller
         return redirect()->route('page-career.index')->with('message', 'Career page data updated successfully!');
     }
 
+    
     public function destroy(string $id)
     {
         $data['deleted_by'] =  Auth::user()->id;

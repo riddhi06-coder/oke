@@ -98,7 +98,7 @@
                     </svg><span>Career</span></a>
                   <ul class="sidebar-submenu">
                     <li><a href="{{ route('page-career.index') }}">Page Details </a></li>
-                    <li><a href="{{ route('page-career.index') }}">Job Opportunities</a></li>
+                    <li><a href="{{ route('job-roles.index') }}">Job Opportunities</a></li>
                     <li><a href="{{ route('page-career.index') }}">Job Details</a></li>
                   </ul>
                 </li>
