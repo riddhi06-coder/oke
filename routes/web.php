@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\JobRolesController;
 
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\DetailController;
+use App\Http\Controllers\Frontend\CareersController;
 
 
 // Route::get('/', function () {
@@ -66,7 +67,7 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     Route::get('/contact-us', [HomePageController::class, 'contact_us'])->name('contact.us');
     Route::get('/thank-you', [HomePageController::class, 'thankyou'])->name('thank.you');
     Route::post('/send-mail', [HomePageController::class, 'sendContactMail'])->name('send.mail');
-
+    Route::get('/career', [CareersController::class, 'career'])->name('careers.fetch');
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
 
  
