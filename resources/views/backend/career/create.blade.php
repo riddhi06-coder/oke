@@ -171,7 +171,6 @@
                                         </h5>
 
 
-
                                         <table class="table table-bordered" id="serviceTable">
                                             <thead>
                                                 <tr>
@@ -194,6 +193,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
 
                                         <!-- Form Actions -->
                                         <div class="col-12 text-end">
