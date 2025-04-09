@@ -121,4 +121,91 @@ class CareerController extends Controller
         return view('backend.career.edit', compact('career'));
     }
     
+
+    public function update(Request $request, $id)
+    {
+        $career = PageCareer::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'banner_heading' => 'required|string|max:255',
+            'banner_title' => 'required|string|max:255',
+            'banner_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'page_heading' => 'required|string|max:255',
+            'page_title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'description' => 'required|string',
+            'review_heading' => 'required|string|max:255',
+            'review_title' => 'required|string|max:255',
+            'rating_heading' => 'required|string|max:255',
+            'ratings' => 'required|string|max:255',
+            'other_description' => 'required|string',
+            'service_image.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'banner_heading.required' => 'Banner Heading is required.',
+            'banner_title.required' => 'Banner Title is required.',
+            'page_heading.required' => 'Page Heading is required.',
+            'page_title.required' => 'Page Title is required.',
+            'description.required' => 'Description is required.',
+            'review_heading.required' => 'Review Heading is required.',
+            'review_title.required' => 'Review Title is required.',
+            'rating_heading.required' => 'Rating Heading is required.',
+            'ratings.required' => 'Ratings field is required.',
+            'other_description.required' => 'Review Description is required.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Update Banner Image
+        if ($request->hasFile('banner_image')) {
+          
+            $bannerFile = $request->file('banner_image');
+            $career->banner_image = time() . rand(10, 999) . '.' . $bannerFile->getClientOriginalExtension();
+            $bannerFile->move(public_path('uploads/career/'), $career->banner_image);
+        }
+
+        // Update Section Image
+        if ($request->hasFile('image')) {
+           
+            $sectionFile = $request->file('image');
+            $career->image = time() . rand(10, 999) . '.' . $sectionFile->getClientOriginalExtension();
+            $sectionFile->move(public_path('uploads/career/'), $career->image);
+        }
+
+        // Merge old and new profile images
+        $existingImages = $request->has('existing_profile_images') ? $request->existing_profile_images : [];
+        $newImages = [];
+
+        if ($request->hasFile('service_image')) {
+            foreach ($request->file('service_image') as $img) {
+                if ($img) {
+                    $imgName = time() . rand(10, 999) . '.' . $img->getClientOriginalExtension();
+                    $img->move(public_path('uploads/career/'), $imgName);
+                    $newImages[] = $imgName;
+                }
+            }
+        }
+
+        $allImages = array_merge($existingImages, $newImages);
+
+        $career->update([
+            'banner_heading' => $request->banner_heading,
+            'banner_title' => $request->banner_title,
+            'page_heading' => $request->page_heading,
+            'page_title' => $request->page_title,
+            'description' => $request->description,
+            'review_heading' => $request->review_heading,
+            'review_title' => $request->review_title,
+            'rating_heading' => $request->rating_heading,
+            'ratings' => $request->ratings,
+            'other_description' => $request->other_description,
+            'profile_images' => json_encode($allImages),
+            'modified_at'      => Carbon::now(),
+            'modified_by'      => Auth::id(),
+        ]);
+
+        return redirect()->route('page-career.index')->with('message', 'Career page data updated successfully!');
+    }
+
 }

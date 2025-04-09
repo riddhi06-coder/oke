@@ -199,7 +199,7 @@
                                                             <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                            <button type="button" class="btn btn-danger" onclick="removeServiceRow(this)">Remove</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -212,15 +212,12 @@
                                                             <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                                                            <button type="button" class="btn btn-danger" onclick="removeServiceRow(this)">Remove</button>
                                                         </td>
                                                     </tr>
                                             @endif
-
                                             </tbody>
                                         </table>
-
-
 
                                         <!-- Form Actions -->
                                         <div class="col-12 text-end">
