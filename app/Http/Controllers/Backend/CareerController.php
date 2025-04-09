@@ -20,7 +20,7 @@ class CareerController extends Controller
 
     public function index()
     {
-        $careerPages = PageCareer::all();
+        $careerPages = PageCareer::wherenull('deleted_by')->get();
         return view('backend.career.index', compact('careerPages'));
     }
     
