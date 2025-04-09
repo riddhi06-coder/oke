@@ -63,7 +63,26 @@
                           </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach($careerPages as $key => $career)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>
+                                        @if($career->banner_image)
+                                            <img src="{{ asset('uploads/career/' . $career->banner_image) }}" alt="Banner" width="100">
+                                        @endif
+                                    </td>
+                                    <td>{{ $career->banner_heading }}</td>
+                                    <td>{{ $career->banner_title }}</td>
+                                    <td>
+                                        <a href="{{ route('page-career.edit', $career->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <form action="{{ route('page-career.destroy', $career->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                       </table>
                     </div>

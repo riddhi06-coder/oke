@@ -20,7 +20,8 @@ class CareerController extends Controller
 
     public function index()
     {
-        return view('backend.career.index');
+        $careerPages = PageCareer::all();
+        return view('backend.career.index', compact('careerPages'));
     }
     
     public function create(Request $request)
