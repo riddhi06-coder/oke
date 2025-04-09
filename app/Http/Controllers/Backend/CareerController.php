@@ -208,4 +208,18 @@ class CareerController extends Controller
         return redirect()->route('page-career.index')->with('message', 'Career page data updated successfully!');
     }
 
+    public function destroy(string $id)
+    {
+        $data['deleted_by'] =  Auth::user()->id;
+        $data['deleted_at'] =  Carbon::now();
+        try {
+            $industries = PageCareer::findOrFail($id);
+            $industries->update($data);
+
+            return redirect()->route('page-career.index')->with('message', 'Details deleted successfully!');
+        } catch (Exception $ex) {
+            return redirect()->back()->with('error', 'Something Went Wrong - ' . $ex->getMessage());
+        }
+    }
+
 }
