@@ -43,8 +43,8 @@
 
                   <li><a href="{{ route('about.us') }}">About OKE</a></li>
                   <!-- <li><a href="coming-soon.html">Events & Exhibitions</a></li>
-                  <li><a href="coming-soon.html">Blogs</a></li>
-                  <li><a href="coming-soon.html">Careers</a></li> -->
+                  <li><a href="coming-soon.html">Blogs</a></li> -->
+                  <li><a href="{{ route('contact.us') }}">Careers</a></li>
                   <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                 </ul>
               </nav>

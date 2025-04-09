@@ -88,6 +88,22 @@
                   </ul>
                 </li>
 
+
+                <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon"> 
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#tag') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#tag') }}"></use>
+                    </svg><span>Career</span></a>
+                  <ul class="sidebar-submenu">
+                    <li><a href="{{ route('page-career.index') }}">Page Details </a></li>
+                    <li><a href="{{ route('page-career.index') }}">Job Opportunities</a></li>
+                    <li><a href="{{ route('page-career.index') }}">Job Details</a></li>
+                  </ul>
+                </li>
+
+
                 <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="{{ route('contact-details.index') }}">
                     <svg class="stroke-icon"> 
                       <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
