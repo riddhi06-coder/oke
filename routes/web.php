@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\BusinessDetailsController;
 use App\Http\Controllers\Backend\ContactDetailsController;
 use App\Http\Controllers\Backend\CareerController;
 use App\Http\Controllers\Backend\JobRolesController;
+use App\Http\Controllers\Backend\BlogListingController;
+use App\Http\Controllers\Backend\EventListingController;
 
 
 use App\Http\Controllers\Frontend\HomePageController;
@@ -56,6 +58,13 @@ Route::resource('page-career', CareerController::class);
 
 // ==== Manage Job Roles
 Route::resource('job-roles', JobRolesController::class);
+
+// ==== Manage Events
+Route::resource('events-listing', EventListingController::class);
+
+
+// ==== Manage Blog Listing
+Route::resource('listing-blogs', BlogListingController::class);
 
 
 Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHistoryMiddleware::class]],function(){
