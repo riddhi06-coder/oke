@@ -50,20 +50,32 @@
                         <a href="{{ route('events-details.create') }}" class="btn btn-primary px-5 radius-30">+ Add Event & Exhibition Details</a>
                     </div>
 
-
                     <div class="table-responsive custom-scrollbar">
                       <table class="display" id="basic-1">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Events Title</th>
-                                <th>Events Date</th>
-                                <th>Events Location</th>
+                                <th>Events Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach($events as $index => $event)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $event->banner_title ?? '-' }}</td>
+                                    <td>{!! $event->description ?? '-' !!}</td> 
+                                    <td>
+                                        <a href="{{ route('events-details.edit', $event->id) }}" class="btn btn-sm btn-primary">Edit</a><br><br>
+                                        <form action="{{ route('events-details.destroy', $event->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                       </table>
                     </div>
