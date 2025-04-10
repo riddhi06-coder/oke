@@ -126,16 +126,16 @@
 
                                         <!-- Contact Heading -->
                                         <div class="col-xxl-4 col-sm-6">
-                                            <label class="form-label" for="contact_heading">Contact Heading <span class="txt-danger">*</span></label>
-                                            <input class="form-control" id="contact_heading" type="text" name="contact_heading" placeholder="Enter Contact Heading" value="{{ old('contact_heading') }}" required>
+                                            <label class="form-label" for="contact_heading">Contact Heading</label>
+                                            <input class="form-control" id="contact_heading" type="text" name="contact_heading" placeholder="Enter Contact Heading" value="{{ old('contact_heading') }}">
                                             <div class="invalid-feedback">Please enter a Contact Heading.</div>
                                         </div>
 
 
                                         <!-- Contact Title -->
                                         <div class="col-xxl-4 col-sm-6">
-                                            <label class="form-label" for="contact_title">Contact Title <span class="txt-danger">*</span></label>
-                                            <input class="form-control" id="contact_title" type="text" name="contact_title" placeholder="Enter Banner" value="{{ old('contact_title') }}" required>
+                                            <label class="form-label" for="contact_title">Contact Title</label>
+                                            <input class="form-control" id="contact_title" type="text" name="contact_title" placeholder="Enter Banner" value="{{ old('contact_title') }}">
                                             <div class="invalid-feedback">Please enter a Contact Title.</div>
                                         </div>
 
