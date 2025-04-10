@@ -8,6 +8,7 @@
             font-size: 14px;
             margin-top: 5px;
             display: block;
+            color: red !important;
         }
         .text-white {
             color: white;
@@ -125,28 +126,28 @@
                             <div class="row">
                                 <!-- Name Field -->
                                 <div class="form-group col-md-6">
-                                    <label>Name</label>
+                                    <label>Name *</label>
                                     <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name">
                                     <small id="nameError" class="text-white error-message"></small>
                                 </div>
                     
                                 <!-- Email Field -->
                                 <div class="form-group col-md-6">
-                                    <label>Email ID</label>
+                                    <label>Email ID *</label>
                                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email Id">
                                     <small id="emailError" class="text-white error-message"></small>
                                 </div>
                     
                                 <!-- Phone Number Field -->
                                 <div class="form-group col-md-6">
-                                    <label>Phone No</label>
+                                    <label>Phone No *</label>
                                     <input type="text" id="phone" name="phone" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Enter Mobile No">
                                     <small id="phoneError" class="text-white error-message"></small>
                                 </div>
                     
                                 <!-- Enquiry Dropdown -->
                                 <div class="form-group col-md-6">
-                                    <label>Enquiry</label>
+                                    <label>Enquiry *</label>
                                     <select class="form-control" id="enquiry_id" name="enquiry_id">
                                         <option value="">Select Enquiry</option>
                                         <option value="1">Arvos</option>
@@ -159,7 +160,7 @@
                     
                                 <!-- Message Field -->
                                 <div class="form-group col-md-12">
-                                    <label>Message</label>
+                                    <label>Message *</label>
                                     <textarea id="message" name="message" class="form-control message-box-sec" placeholder="Enter Message"></textarea>
                                     <small id="messageError" class="text-white error-message"></small>
                                 </div>
@@ -238,53 +239,54 @@
         function validateForm() {
             // Clear previous errors
             document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-        
+
             // Get form values
             const name = document.getElementById("name").value.trim();
             const email = document.getElementById("email").value.trim();
             const phone = document.getElementById("phone").value.trim();
             const enquiry = document.getElementById("enquiry_id").value;
             const message = document.getElementById("message").value.trim();
-        
+
             // Regular expressions
-            const namePattern = /^[a-zA-Z\s]+$/;
+            const namePattern = /^[a-zA-Z\s]+$/; // Only letters and spaces
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const phonePattern = /^[0-9]{10}$/;
-        
+            const phonePattern = /^\d{10}$/; // Exactly 10 digits
+
             let isValid = true;
-        
+
             // Name validation
             if (!name.match(namePattern)) {
-                document.getElementById("nameError").textContent = "Please enter a name.";
+                document.getElementById("nameError").textContent = "Please enter a valid name (letters only).";
                 isValid = false;
             }
-        
+
             // Email validation
             if (!email.match(emailPattern)) {
-                document.getElementById("emailError").textContent = "Please enter a email id.";
+                document.getElementById("emailError").textContent = "Please enter a valid email address.";
                 isValid = false;
             }
-        
+
             // Phone validation
             if (!phone.match(phonePattern)) {
-                document.getElementById("phoneError").textContent = "Please enter a valid 10-digit phone number.";
+                document.getElementById("phoneError").textContent = "Please enter a 10-digit mobile number.";
                 isValid = false;
             }
-        
+
             // Enquiry validation
             if (enquiry === "") {
                 document.getElementById("enquiryError").textContent = "Please select an enquiry type.";
                 isValid = false;
             }
-        
+
             // Message validation
             if (message.length < 10) {
                 document.getElementById("messageError").textContent = "Message should be at least 10 characters long.";
                 isValid = false;
             }
-        
+
             return isValid;
         }
+
     </script>
 
 </body>

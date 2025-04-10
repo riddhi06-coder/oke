@@ -124,40 +124,61 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <form>
+            <form action="{{ route('submit.resume') }}" method="POST" enctype="multipart/form-data" id="resumeForm" >
+            @csrf
               <div class="heading white-heading text-center">
                 <h2>Join Us</h2>
                 <h3>Send your resume</h3>
               </div>
+
               <div class="form-group col-md-6">
-                <label>First Name</label>
-                <input type="text" class="form-control">
+                <label>First Name <span class="txt-danger">*</span></label>
+                <input type="text" class="form-control" name="first_name">
+                <div class="error-message"></div>
               </div>
+
               <div class="form-group col-md-6">
-                <label>Last Name</label>
-                <input type="text" class="form-control">
+                <label>Last Name <span class="txt-danger">*</span></label>
+                <input type="text" class="form-control" name="last_name">
+                <div class="error-message"></div>
               </div>
+
               <div class="form-group col-md-6">
-                <label>Email</label>
-                <input type="email" class="form-control">
+                <label>Email <span class="txt-danger">*</span></label>
+                <input type="email" class="form-control" name="email">
+                <div class="error-message"></div>
               </div>
+
               <div class="form-group col-md-6">
-                <label>Mobile Phone Number</label>
-                <input type="text" class="form-control">
+                <label>Mobile Phone Number <span class="txt-danger">*</span></label>
+                <input type="text" class="form-control" name="mobile" pattern="\d{10}" maxlength="10" title="Please enter a 10-digit mobile number">
+                <div class="error-message"></div>
               </div>
+
               <div class="form-group col-md-12">
-                <label>Resume</label>
-                <input type="file" class="form-control">
+                <label>Resume <span class="txt-danger">*</span></label>
+                <input type="file" class="form-control" name="resume" accept=".pdf">
+                <small class="text-secondary" style="color: white; font-size: 12px;">
+                  <b>Note: The file size should be less than 1.5MB.</b>
+                </small>
+                <br>
+                <small class="text-secondary" style="color: white; font-size: 12px;">
+                  <b>Note: Only files in .pdf format can be uploaded.</b>
+                </small>
+
+                <div class="error-message"></div>
               </div>
+
               <div class="text-center">
-              <button class="btn-primary btn-grey text-center-center margin-auto">
-                <span>Submit</span>
-                <span class="btn-primary-inner">
-                  <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
-                </span>
-              </button>
-            </div>
+                <button type="submit" class="btn-primary btn-grey text-center-center margin-auto">
+                  <span>Submit</span>
+                  <span class="btn-primary-inner">
+                    <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
+                  </span>
+                </button>
+              </div>
             </form>
+
           </div>
         </div>
       </div>
@@ -166,6 +187,87 @@
 
     @include('components.frontend.footer')
     @include('components.frontend.main-js')
+
+
+    <script>
+
+      document.querySelector("#resumeForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+        const form = this;
+        const inputs = form.querySelectorAll("input");
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const nameRegex = /^[A-Za-z\s]+$/;
+        const phoneRegex = /^\d{10}$/;
+
+        // Clear previous errors
+        form.querySelectorAll(".error-message").forEach(div => div.innerText = "");
+
+        inputs.forEach(input => {
+          const errorDiv = input.nextElementSibling;
+          const label = input.previousElementSibling ? input.previousElementSibling.innerText : '';
+          errorDiv.style.color = "red";
+          errorDiv.innerText = "";
+
+          if (input.value.trim() === "") {
+            isValid = false;
+            errorDiv.innerText = `${label} is required.`;
+          } else {
+            if (input.name === "first_name" || input.name === "last_name") {
+              if (!nameRegex.test(input.value.trim())) {
+                isValid = false;
+                errorDiv.innerText = `${label} should not contain numbers or special characters.`;
+              }
+            }
+
+            if (input.name === "email") {
+              if (!emailRegex.test(input.value.trim())) {
+                isValid = false;
+                errorDiv.innerText = "Please enter a valid email.";
+              }
+            }
+
+            if (input.name === "phone") {
+              if (!phoneRegex.test(input.value.trim())) {
+                isValid = false;
+                errorDiv.innerText = "Phone number must be exactly 10 digits.";
+              }
+            }
+
+            if (input.name === "resume") {
+              const file = input.files[0];
+              if (!file) {
+                isValid = false;
+                errorDiv.innerText = "Please upload your resume.";
+              } else {
+                const allowedTypes = ['application/pdf'];
+                if (!allowedTypes.includes(file.type)) {
+                  isValid = false;
+                  errorDiv.innerText = "Only PDF files are allowed.";
+                } else if (file.size > 1.5 * 1024 * 1024) {
+                  isValid = false;
+                  errorDiv.innerText = "File size should not exceed 1.5 MB.";
+                }
+              }
+            }
+          }
+        });
+
+        if (isValid) {
+          form.submit();
+        }
+      });
+
+      // Prevent non-numeric input in phone field
+      document.querySelector('input[name="mobile"]').addEventListener("input", function () {
+        if (this.value < 0) this.value = 0;
+        this.value = this.value.replace(/[^0-9]/g, ""); // optional: keep only digits
+      });
+
+    </script>
+
+
 
 </body>
 </html>

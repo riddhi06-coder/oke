@@ -165,7 +165,6 @@ class EventDetailsController extends Controller
         return redirect()->route('events-details.index')->with('message', 'Event details updated successfully!');
     }
 
-
     public function destroy(string $id)
     {
         $data['deleted_by'] =  Auth::user()->id;

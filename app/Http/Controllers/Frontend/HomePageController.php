@@ -110,7 +110,7 @@ class HomePageController extends Controller
                     ->from($emailData['email'], $emailData['name']);
         });
     
-        return redirect()->route('thank.you')->with('success', 'Your message has been sent successfully!');
+        return redirect()->route('thank.you')->with('message', 'Your message has been sent successfully!');
     }
     
 
