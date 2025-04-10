@@ -205,43 +205,43 @@
         }
     </script>
 
+    <!-- Script for table management -->
+    <script>
 
-<script>
-
-        function addServiceRow() {
-            let tableBody = document.getElementById("serviceTableBody");
-            let newRow = document.createElement("tr");
-            newRow.innerHTML = `
-                <td>
-                    <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewServiceImage(event, this)" required>
-                    <img src="#" alt="Service Image Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
-                    <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
-                    <br>
-                    <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
-                </td>
-                <td><button type="button" class="btn btn-danger" onclick="removeServiceRow(this)">Remove</button></td>
-            `;
-            tableBody.appendChild(newRow);
-        }
-
-        function removeServiceRow(button) {
-            button.closest("tr").remove();
-        }
-
-        function previewServiceImage(event, input) {
-            let file = input.files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let img = input.nextElementSibling;
-                    img.src = e.target.result;
-                    img.style.display = "block";
-                };
-                reader.readAsDataURL(file);
+            function addServiceRow() {
+                let tableBody = document.getElementById("serviceTableBody");
+                let newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>
+                        <input class="form-control" type="file" name="service_image[]" accept="image/*" onchange="previewServiceImage(event, this)" required>
+                        <img src="#" alt="Service Image Preview" class="img-preview" style="background-color: black; max-width: 30%; height: auto; display: none; border: 1px solid #ddd; padding: 5px;">
+                        <small class="text-secondary"><b>Note: The file size should be less than 2MB.</b></small>
+                        <br>
+                        <small class="text-secondary"><b>Note: Only files in .jpg, .jpeg, .png, .webp format can be uploaded.</b></small>
+                    </td>
+                    <td><button type="button" class="btn btn-danger" onclick="removeServiceRow(this)">Remove</button></td>
+                `;
+                tableBody.appendChild(newRow);
             }
-        }
 
-</script>
+            function removeServiceRow(button) {
+                button.closest("tr").remove();
+            }
+
+            function previewServiceImage(event, input) {
+                let file = input.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        let img = input.nextElementSibling;
+                        img.src = e.target.result;
+                        img.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+    </script>
 
 
 </body>
