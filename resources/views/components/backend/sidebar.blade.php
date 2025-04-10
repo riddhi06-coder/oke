@@ -97,7 +97,7 @@
                     </svg><span>Events & Exhibition</span></a>
                   <ul class="sidebar-submenu">
                     <li><a href="{{ route('events-listing.index') }}">Events Listing </a></li>
-                    <li><a href="{{ route('job-roles.index') }}">Events Details</a></li>
+                    <li><a href="{{ route('events-details.index') }}">Events Details</a></li>
                   </ul>
                 </li>
 

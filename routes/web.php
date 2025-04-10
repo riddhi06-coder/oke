@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\CareerController;
 use App\Http\Controllers\Backend\JobRolesController;
 use App\Http\Controllers\Backend\BlogListingController;
 use App\Http\Controllers\Backend\EventListingController;
+use App\Http\Controllers\Backend\EventDetailsController;
 
 
 use App\Http\Controllers\Frontend\HomePageController;
@@ -63,6 +64,8 @@ Route::resource('job-roles', JobRolesController::class);
 // ==== Manage Events
 Route::resource('events-listing', EventListingController::class);
 
+// ==== Manage Events Details
+Route::resource('events-details', EventDetailsController::class);
 
 // ==== Manage Blog Listing
 Route::resource('listing-blogs', BlogListingController::class);
