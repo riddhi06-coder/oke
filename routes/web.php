@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\EventListingController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\DetailController;
 use App\Http\Controllers\Frontend\CareersController;
+use App\Http\Controllers\Frontend\ExhibitionController;
 
 
 // Route::get('/', function () {
@@ -77,6 +78,7 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     Route::get('/thank-you', [HomePageController::class, 'thankyou'])->name('thank.you');
     Route::post('/send-mail', [HomePageController::class, 'sendContactMail'])->name('send.mail');
     Route::get('/career', [CareersController::class, 'career'])->name('careers.fetch');
+    Route::get('/events-exhibition', [ExhibitionController::class, 'events_exhibitions'])->name('events.exhibition');
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
 
  

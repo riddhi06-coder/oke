@@ -104,7 +104,6 @@ class EventListingController extends Controller
         return view('backend.events.listing.edit', compact('event'));
     }
 
-
     public function update(Request $request, $id)
     {
         $event = EventListing::findOrFail($id);
