@@ -82,8 +82,7 @@ Route::group(['prefix'=> '', 'middleware'=>[\App\Http\Middleware\PreventBackHist
     Route::post('/send-mail', [HomePageController::class, 'sendContactMail'])->name('send.mail');
     Route::get('/career', [CareersController::class, 'career'])->name('careers.fetch');
     Route::get('/events-exhibition', [ExhibitionController::class, 'events_exhibitions'])->name('events.exhibition');
+    Route::get('/events-exhibition-details/{slug}', [ExhibitionController::class, 'events_exhibitions_details'])->name('events.details');
     Route::get('/{slug}', [DetailController::class, 'details'])->name('display.detail');
-
- 
 
 });

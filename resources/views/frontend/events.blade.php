@@ -36,13 +36,13 @@
                     <a href="#"><img src="{{ asset('frontend/assets/images/icons/location.png') }}" /><span>{{ $event->event_loaction }}</span></a>
                     </div>
                     <div class="fit-img">
-                    <a href="#" class="eve-img-sec">
+                    <a href="{{ route('events.details', $event->slug) }}" class="eve-img-sec">
                         <img src="{{ asset('uploads/events/' . $event->image) }}" alt="">
                     </a>
                     </div>
                     <div class="cont">
-                    <h5><a href="#">{{ $event->events_title }}</a></h5>
-                    <a href="#" class="butn-crev d-flex align-items-center mt-30">
+                    <h5><a href="{{ route('events.details', $event->slug) }}">{{ $event->events_title }}</a></h5>
+                    <a href="{{ route('events.details', $event->slug) }}" class="butn-crev d-flex align-items-center mt-30">
                         <span class="hover-this">
                         <span class="circle">
                             <i class="fa fa-angle-right"></i>
@@ -75,12 +75,14 @@
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="cta-btn">
-              <button class="btn-primary">
-                <span>Know More</span>
-                <span class="btn-primary-inner">
-                  <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
-                </span>
-              </button>
+                <a href="{{ route('contact.us') }}">
+                    <button class="btn-primary">
+                        <span>Know More</span>
+                        <span class="btn-primary-inner">
+                            <img src="{{ asset('frontend/assets/images/icons/btn.svg') }}">
+                        </span>
+                    </button>
+                </a>
             </div>
           </div>
         </div>
