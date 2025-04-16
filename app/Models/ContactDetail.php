@@ -27,6 +27,8 @@ class ContactDetail extends Model
         'contact_names',
         'contact_emails',
         'contact_phones',
+        'platform',
+        'media_url',
 
         'inserted_at',
         'inserted_by',

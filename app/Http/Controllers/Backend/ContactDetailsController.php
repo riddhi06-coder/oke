@@ -54,7 +54,9 @@ class ContactDetailsController extends Controller
             'email.*' => 'required|email|max:255',
             'phone.*' => 'required|digits:10',
         
-        ], [
+            'social_media_platform.*' => 'required|string',   
+            'social_media_url.*' => 'required|url',         
+            ], [
             // Banner Fields Messages
             'banner_title.required' => 'Please enter a banner title.',
             'banner_title.string' => 'The banner title must be a valid text.',
@@ -110,8 +112,13 @@ class ContactDetailsController extends Controller
         
             'phone.*.required' => 'Please enter a contact number in the contact card.',
             'phone.*.digits' => 'Each contact number in the contact card must be exactly 10 digits.',
+
+            'social_media_platform.*.required' => 'Please select a social media platform.',
+            'social_media_url.*.required' => 'Please enter a valid URL for the platform.',
+            'social_media_url.*.url' => 'Please enter a valid URL.',
         ]);
         
+        // dd($request);
 
         $bannerImageName = null;
         if ($request->hasFile('banner_image')) {
@@ -137,6 +144,10 @@ class ContactDetailsController extends Controller
             'contact_names' => json_encode($request->name),
             'contact_emails' => json_encode($request->email),
             'contact_phones' => json_encode($request->phone),
+
+            'platform' => json_encode($request->social_media_platform),
+            'media_url' => json_encode($request->social_media_url),
+
             'inserted_at' => Carbon::now(),
             'inserted_by' => Auth::id(),
         ]);
@@ -159,8 +170,10 @@ class ContactDetailsController extends Controller
         $contact->contactNames = json_decode($contact->contact_names, true) ?? [];
         $contact->contactEmails = json_decode($contact->contact_emails, true) ?? [];
         $contact->contactPhones = json_decode($contact->contact_phones, true) ?? [];
+        $socialMediaLinks = ContactDetail::where('id', $id)->get();
+        // dd($socialMediaLinks);
 
-        return view('backend.contact.edit', compact('contact'));
+        return view('backend.contact.edit', compact('contact','socialMediaLinks'));
     }
 
 
@@ -185,6 +198,10 @@ class ContactDetailsController extends Controller
             'name.*' => 'required|string|max:255',
             'email.*' => 'required|email|max:255',
             'phone.*' => 'required|digits:10',
+
+            'social_media_platform.*' => 'required|string',
+            'social_media_url.*' => 'required|url',
+
         ], [
             'banner_title.required' => 'The banner title is required.',
             'banner_title.max' => 'The banner title must not exceed 255 characters.',
@@ -228,6 +245,10 @@ class ContactDetailsController extends Controller
         
             'phone.*.required' => 'The phone number is required.',
             'phone.*.digits' => 'The phone number must be exactly 10 digits.',
+
+            'social_media_platform.*.required' => 'Please select a social media platform.',
+            'social_media_url.*.required' => 'Please enter a valid URL for the platform.',
+            'social_media_url.*.url' => 'Please enter a valid URL.',
         ]);
         
 
@@ -258,6 +279,9 @@ class ContactDetailsController extends Controller
             'contact_names' => json_encode($request->name),
             'contact_emails' => json_encode($request->email),
             'contact_phones' => json_encode($request->phone),
+            'platform' => json_encode($request->social_media_platform),
+            'media_url' => json_encode($request->social_media_url),
+
             'modified_at' => Carbon::now(),
             'modified_by' => Auth::id(),
         ]);

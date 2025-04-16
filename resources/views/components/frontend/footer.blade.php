@@ -16,22 +16,43 @@
                 <li><a class="footer-link" href="{{ route('contact.us') }}">Contact Us</a></li>
               </ul>
               <div class="pattern-box"></div>
-              <div class="footer-social-items">
+
+             @php
+                use Illuminate\Support\Facades\DB;
+
+                $footer = DB::table('contact_details')->first();
+                $platforms = json_decode($footer->platform ?? '[]', true);
+                $urls = json_decode($footer->media_url ?? '[]', true);
+
+                $linkedinUrl = '#'; // Default fallback
+
+                foreach ($platforms as $index => $platform) {
+                    if (strtolower($platform) === 'linkedin' && !empty($urls[$index])) {
+                        $linkedinUrl = $urls[$index];
+                        break;
+                    }
+                }
+            @endphp
+
+            <div class="footer-social-items">
                 <ul class="footer-social-list"> 
-                  <li class="footer-social-list-item">
-                    <a target="_blank" class="footer-social-list-link">Follow Us</a>
-                  </li>
-                  <!-- <li class="footer-social-list-item">
-                    <a href="#" target="_blank" class="footer-social-list-link"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                  </li> -->
-                  <li class="footer-social-list-item">
-                    <a href="#" target="_blank" class="footer-social-list-link"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                  </li>
-                  <!-- <li class="footer-social-list-item last-child">
-                    <a href="#" target="_blank" class="footer-social-list-link"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                  </li> -->
+                    <li class="footer-social-list-item">
+                        <a target="_blank" class="footer-social-list-link">Follow Us</a>
+                    </li>
+
+                    <li class="footer-social-list-item">
+                        <a href="{{ $linkedinUrl }}" target="_blank" class="footer-social-list-link">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                    </li>
                 </ul>
-              </div>
+            </div>
+
+
+
+            
+
+              
             </div>
           </div>
         </div>

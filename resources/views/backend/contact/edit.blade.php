@@ -3,6 +3,8 @@
     
 <head>
     @include('components.backend.head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 	   
 		@include('components.backend.header')
@@ -192,6 +194,63 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+
+
+                                        <!-- Add bottom margin here -->
+                                        <div class="mb-5"></div>
+
+                                        <h5 class="mb-4 mt-3 d-flex justify-content-between">
+                                            <strong># Social Media Details</strong>
+                                            <button type="button" class="btn btn-success add-row">Add Row</button>
+                                        </h5>
+
+                                        <div class="col-12">
+                                     
+                                            <table class="table table-bordered p-3" id="socialMediaTable" style="border: 2px solid #dee2e6;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Social Media Platform <span class="txt-danger">*</span></th>
+                                                        <th>URL <span class="txt-danger">*</span></th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($socialMediaLinks as $item)
+                                                        @php
+                                                            $platforms = json_decode($item->platform, true) ?? [];
+                                                            $mediaUrls = json_decode($item->media_url, true) ?? [];
+                                                        @endphp
+
+                                                        @foreach ($platforms as $index => $platform)
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-control" name="social_media_platform[]" required>
+                                                                        <option value="">Select Platform</option>
+                                                                        <option value="Facebook" @if($platform == 'Facebook') selected @endif>Facebook</option>
+                                                                        <option value="Twitter" @if($platform == 'Twitter') selected @endif>Twitter</option>
+                                                                        <option value="Instagram" @if($platform == 'Instagram') selected @endif>Instagram</option>
+                                                                        <option value="LinkedIn" @if($platform == 'LinkedIn') selected @endif>LinkedIn</option>
+                                                                        <option value="YouTube" @if($platform == 'Youtube') selected @endif>YouTube</option>
+                                                                        <option value="Watsapp" @if($platform == 'Watsapp') selected @endif>Watsapp</option>
+                                                                        <option value="Pinterest" @if($platform == 'Pinterest') selected @endif>Pinterest</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="url" name="social_media_url[]" value="{{ $mediaUrls[$index] ?? '' }}" placeholder="Enter URL" required>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-danger remove-row" data-id="{{ $item->id }}">Remove</button>
+                                                                    <input type="hidden" name="social_media_id[]" value="{{ $item->id }}">
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endforeach
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+
+
                                         <div class="col-12 text-end">
                                             <a href="{{ route('contact-details.index') }}" class="btn btn-danger px-4">Cancel</a>
                                             <button class="btn btn-primary" type="submit">Update</button>
@@ -316,6 +375,51 @@
             button.closest("tr").remove();
         }
 
+    </script>
+
+
+    <!-- JavaScript to add rows dynamically for social media -->
+    <script>
+        document.querySelector('.add-row').addEventListener('click', function () {
+            const tableBody = document.querySelector('#socialMediaTable tbody');
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>
+                    <select class="form-control" name="social_media_platform[]" required>
+                        <option value="">Select Platform</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Watsapp">Watsapp</option>
+                        <option value="Pinterest">Pinterest</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="url" name="social_media_url[]" placeholder="Enter URL" required>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-row">Remove</button>
+                </td>
+            `;
+
+            // Append row and attach remove event
+            tableBody.appendChild(newRow);
+            attachRemoveEvent(newRow.querySelector('.remove-row'));
+        });
+
+        // Function to attach remove event
+        function attachRemoveEvent(button) {
+            button.addEventListener('click', function () {
+                const row = this.closest('tr');
+                row.remove();
+            });
+        }
+
+        // Attach remove event to existing rows
+        document.querySelectorAll('.remove-row').forEach(button => attachRemoveEvent(button));
     </script>
 
 

@@ -257,6 +257,49 @@
                                         </tbody>
                                     </table>
 
+
+
+                                    <hr>
+                                    <h5 class="mb-4 mt-3 d-flex justify-content-between">
+                                        <strong># Social Media Details</strong>
+                                       
+                                    </h5>
+                                    
+                                    <!-- Social Media Links Table -->
+                                    <div class="col-12">
+                                        <table class="table table-bordered p-3" id="socialMediaTable" style="border: 2px solid #dee2e6;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Social Media Platform <span class="txt-danger">*</span></th>
+                                                    <th>URL <span class="txt-danger">*</span></th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="form-control" name="social_media_platform[]" required>
+                                                            <option value="">Select Platform</option>
+                                                            <option value="Facebook">Facebook</option>
+                                                            <option value="Twitter">Twitter</option>
+                                                            <option value="Instagram">Instagram</option>
+                                                            <option value="LinkedIn">LinkedIn</option>
+                                                            <option value="Youtube">YouTube</option>
+                                                            <option value="Watsapp">Watsapp</option>
+                                                            <option value="Pinterest">Pinterest</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" type="url" name="social_media_url[]" placeholder="Enter URL" required>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success add-row">Add Row</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <!-- Form Actions -->
                                     <div class="col-12 text-end">
                                         <a href="{{ route('contact-details.index') }}" class="btn btn-danger px-4">Cancel</a>
@@ -385,6 +428,41 @@
 
     </script>
 
+
+    <!-- JavaScript to add rows dynamically for social media-->
+    <script>
+        document.querySelector('.add-row').addEventListener('click', function() {
+            var tableBody = document.querySelector('#socialMediaTable tbody');
+            var newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>
+                    <select class="form-control" name="social_media_platform[]" required>
+                        <option value="">Select Platform</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="Youtube">YouTube</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="url" name="social_media_url[]" placeholder="Enter URL" required>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-row">Remove</button>
+                </td>
+            `;
+
+            // Add the new row to the table body
+            tableBody.appendChild(newRow);
+
+            // Add event listener for remove button
+            newRow.querySelector('.remove-row').addEventListener('click', function() {
+                newRow.remove();
+            });
+        });
+    </script>
 
 </body>
 
