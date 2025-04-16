@@ -140,9 +140,7 @@
                                     <!-- Other Description -->
                                     <div class="col-12">
                                         <label class="form-label" for="other_description">Other Description <span class="txt-danger">*</span></label>
-                                        <textarea id="other_description" name="other_description" class="form-control summernote" required>
-                                            {{ old('other_description', $about->other_description) }}
-                                        </textarea>
+                                        <textarea id="other_description" name="other_description" class="form-control summernote" required>{{ old('other_description', $about->other_description) }}</textarea>
                                     </div>
 
                                     <!-- Form Actions -->

@@ -73,7 +73,7 @@
                                         @foreach($contact_us->contactNumbers as $index => $number)
                                             <p class="contact-one_info_title">
                                                 <b>{{ $contact_us->businessPhones[$index] ?? 'Business' }}</b>
-                                                <a href="tel:{{ $number }}">{{ $number }}</a>
+                                                <a href="tel:+91 {{ $number }}">+91 {{ $number }}</a>
                                             </p>
                                             @if(!$loop->last) <hr> @endif
                                         @endforeach

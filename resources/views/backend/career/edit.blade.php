@@ -168,10 +168,9 @@
                                         
                                         <div class="col-12 mb-4">
                                             <label class="form-label" for="other_description">Review Description <span class="txt-danger">*</span></label>
-                                            <textarea id="other_description" name="other_description" class="form-control summernote" required>
-                                                {{ old('other_description', $career->other_description ?? '') }}
-                                            </textarea>
+                                            <textarea id="other_description" name="other_description" class="form-control summernote" required>{{ old('other_description', $career->other_description ?? '') }}</textarea>
                                         </div>
+
                                 
 
                                         <h5 class="mb-4 mt-3 d-flex justify-content-between">

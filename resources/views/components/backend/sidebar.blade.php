@@ -71,7 +71,7 @@
                     </svg>
                     <svg class="fill-icon">
                       <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-form') }}"></use>
-                    </svg><span>Bussiness</span></a>
+                    </svg><span>Business</span></a>
                 </li>
 
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
 use App\Models\BusinessDetail;
@@ -43,7 +44,12 @@ class BusinessDetailsController extends Controller
     {
         // dd($request);
         $request->validate([
-            'business_id' => 'required|exists:business,id|unique:business_details,business_id',
+           
+            'business_id' => [
+                'required',
+                'exists:business,id',
+                Rule::unique('business_details', 'business_id')->whereNull('deleted_by'),
+            ],
             'banner_label' => 'required|string|max:255',
             'banner_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'logo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
